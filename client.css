@@ -1,0 +1,48 @@
+body {
+  background-color: lightblue;
+}
+#divParent {
+	width:600px;
+	padding-top:100px;
+	margin:0 auto;
+	height:500px;
+}
+#divLogo {
+	float:left;
+	background-color:white;
+	width:340px;
+	height:100%;
+}
+#divRight {
+	float:right;
+	margin-left: 10px;
+	width:250px;
+	height:100%;
+}
+#divLogin {
+	background-color:white;
+	width:100%;
+	height:30%;
+}
+#divSignup {
+	background-color:white;
+	width:100%;
+	height:70%;
+	border-top: 0.5px solid;
+}
+#formLogin {
+	margin-left:10px;
+}
+#formSignup {
+	margin-left:10px;
+}
+#selectmenu {
+	width:175px;
+}
+.button {
+	float:right;
+	margin-right:65px;
+	border-radius: 25px;
+	background: #73AD21;
+	color: white;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="client.css" type="text/css" rel="stylesheet">
+		<script src="client.js" type="text/javascript"></script>
+		<script src="serverstub.js" type="text/javascript"></script>
+		<script id="welcomeview" type="text/view">
+			
+		</script>
+	</head>
+	<body>
+		<!--<div id="conent"></div>-->
+		<div id="divParent">
+			<!--top: 0;left:0;position: fixed;overflow-x: hidden;-->
+			<div id="divLogo"><img src="wimage.png" alt="Logo"></div> 
+			<div id="divRight">
+				<div id="divLogin">
+					<form id="formLogin" action="#">
+						Username:<br>
+						<input type="email" name="username"><br>
+						Password:<br>
+						<input type="password" name="password"><br><br>
+						<input class="button" type="submit" value="Login">
+					</form>
+				</div> 
+				<div id="divSignup">
+					<form id="formSignup" action="#">
+						Username:<br>
+						<input type="email" name="username"><br>
+						Password:<br>
+						<input type="password" name="password"><br>
+						Repeat password:<br>
+						<input type="password" name="rep_password"><br>
+						First name:<br>
+						<input type="text" name="firstname"><br>
+						Last name:<br>
+						<input type="text" name="lastname"><br>
+						Gender:<br>
+						<select id="selectmenu" name="gender">	
+						  <option value="male">Male</option>
+						  <option value="female">Female</option>
+						  <option value="other">Other</option>
+						</select><br>
+						  <!---<input type="radio" name="gender" value="male" checked> Male<br>
+						  <input type="radio" name="gender" value="female"> Female<br>
+						  <input type="radio" name="gender" value="other"> Other<br>--->
+						City:<br>
+						<input type="text" name="city"><br>
+						Country:<br>
+						<input type="text" name="country"><br><br>
+						<input class="button" type="submit" value="Sign up">
+					</form>
+				</div> 
+			</div> 
+		</div>
+	</body>
+</html>
+
+
+
