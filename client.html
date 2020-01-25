@@ -10,39 +10,38 @@
 				<div id="divLogo"><img src="wimage.png" alt="Logo"></div>
 				<div id="divRight">
 					<div id="divLogin">
-						<form id="formLogin" action="#">
+						<form id="formLogin" action="#" onsubmit="return validSignInPassword();" method="">
 							Username:<br>
-							<input type="email" name="username"><br>
+							<input type="email" name="signin_username" id="signin_username" required><br>
 							Password:<br>
-							<input type="password" name="password"><br><br>
+							<input type="password" name="signin_password" id="signin_password" required><br>
+							<span id='signup_password_message'></span><br>
 							<input class="button" type="submit" value="Login">
 						</form>
 					</div>
 					<div id="divSignup">
-						<form id="formSignup" action="#">
+						<form id="formSignup" action="#" onsubmit="return validSignupPassword();" method="">
 							Username:<br>
-							<input type="email" name="username"><br>
+							<input type="email" name="signup_username" id="signup_username" required><br>
 							Password:<br>
-							<input type="password" name="password"><br>
+							<input type="password" name="signup_password" id="signup_password" required><br>
 							Repeat password:<br>
-							<input type="password" name="rep_password"><br>
+							<input type="password" name="rep_password" id="signup_rep_password" required><br>
+							<span id='signup_password_message'></span><br>
 							First name:<br>
-							<input type="text" name="firstname"><br>
+							<input type="text" name="firstname" id="firstname" required><br>
 							Last name:<br>
-							<input type="text" name="lastname"><br>
+							<input type="text" name="lastname" id="lastname" required><br>
 							Gender:<br>
-							<select id="selectmenu" name="gender">
+							<select id="selectmenu" name="gender" id="gender" required>
 							  <option value="male">Male</option>
 							  <option value="female">Female</option>
 							  <option value="other">Other</option>
 							</select><br>
-							  <!---<input type="radio" name="gender" value="male" checked> Male<br>
-							  <input type="radio" name="gender" value="female"> Female<br>
-							  <input type="radio" name="gender" value="other"> Other<br>--->
 							City:<br>
-							<input type="text" name="city"><br>
+							<input type="text" name="city" id="city" required><br>
 							Country:<br>
-							<input type="text" name="country"><br><br>
+							<input type="text" name="country" id="country" required><br><br>
 							<input class="button" type="submit" value="Sign up">
 						</form>
 					</div>
