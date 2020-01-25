@@ -15,8 +15,8 @@
 							<input type="email" name="signin_username" id="signin_username" required><br>
 							Password:<br>
 							<input type="password" name="signin_password" id="signin_password" required><br>
-							<span id='signup_password_message'></span><br>
-							<input class="button" type="submit" value="Login">
+							<span id='signin_password_message'></span><br>
+							<input class="button" type="submit" value="Login" onclick="return signInMechanism();">
 						</form>
 					</div>
 					<div id="divSignup">
@@ -33,7 +33,7 @@
 							Last name:<br>
 							<input type="text" name="lastname" id="lastname" required><br>
 							Gender:<br>
-							<select id="selectmenu" name="gender" id="gender" required>
+							<select id="selectmenu" name="gender" required>
 							  <option value="male">Male</option>
 							  <option value="female">Female</option>
 							  <option value="other">Other</option>
@@ -42,7 +42,7 @@
 							<input type="text" name="city" id="city" required><br>
 							Country:<br>
 							<input type="text" name="country" id="country" required><br><br>
-							<input class="button" type="submit" value="Sign up">
+							<input class="button" type="submit" value="Sign up" onclick="return signUpMechanism();">
 						</form>
 					</div>
 				</div>
