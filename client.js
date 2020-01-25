@@ -1,13 +1,12 @@
 displayView = function(welcome, profile){
   // the code required to display a view
-  var display;
-  var isLoggedIn = FALSE;
+  var isLoggedIn = false;
 
   if (!isLoggedIn) {
-    display = welcome;
+    var display = welcome;
   }
   else {
-    display = profile;
+    var display = profile;
   }
   document.getElementById("content").innerHTML = display;
 };
