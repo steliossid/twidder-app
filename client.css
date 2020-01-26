@@ -47,6 +47,21 @@ body {
 	color: white;
 }
 
+.button_change{
+	
+	margin-right:65px;
+	border-radius: 25px;
+	background: #73AD21;
+	color: white;
+}
+
+.button_search{
+	
+	border-radius: 25px;
+	background: #73AD21;
+	color: white;
+}
+
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;

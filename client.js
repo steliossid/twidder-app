@@ -141,3 +141,73 @@ openTab = function(e, tabID){
   document.getElementById(tabID).style.display = "block";
   e.currentTarget.className += " active";
 }
+
+//serverstub.signIn(serverstub.getUserDataByToken(response['data'])['data']['email'],serverstub.signIn(email, password))
+var check_old_pass = function(){
+	temp = serverstub.signIn(serverstub.getUserDataByToken(response['data'])['data']['email'],document.getElementById('old_password').value)
+	if(document.getElementById('old_password').value.length>4){
+	  if (temp['success']) {
+		document.getElementById('old_password_message').style.color = 'green';
+		document.getElementById('old_password_message').innerHTML = 'Old Password is correct';
+	  }else {
+		document.getElementById('old_password_message').style.color = 'red';
+		document.getElementById('old_password_message').innerHTML = 'Old Password is not correct';
+	  }
+	}else{
+		document.getElementById('old_password_message').style.color = 'red';
+		document.getElementById('old_password_message').innerHTML = "Password needs to be at least 5 digits!";
+	}
+}
+
+var check_pass_change = function() {
+	if(document.getElementById('new_password').value.length>4){
+	  if(document.getElementById('new_password').value == document.getElementById('rep_new_password').value) {
+		document.getElementById('new_password_message').style.color = 'green';
+		document.getElementById('new_password_message').innerHTML = 'Password matching';
+	  }else{
+		document.getElementById('new_password_message').style.color = 'red';
+		document.getElementById('new_password_message').innerHTML = 'Password not matching';
+	  }
+	  if(document.getElementById('new_password').value == document.getElementById('old_password').value){
+		document.getElementById('new_old_password_message').style.color = 'red';
+		document.getElementById('new_old_password_message').innerHTML = 'Password needs to be different from the old password';
+	  }
+	}else{
+		document.getElementById('new_password_message').style.color = 'red';
+		document.getElementById('new_password_message').innerHTML = "Password needs to be at least 5 digits!";
+	}
+}
+
+var changepassMechanism = function(){
+	if(document.getElementById('new_password').value.length>4){
+		if ((document.getElementById('new_password').value == document.getElementById('rep_new_password').value) && temp['success']==true && (document.getElementById('new_password').value != document.getElementById('old_password').value)){
+			serverstub.changePassword(response['data'], document.getElementById('old_password').value, document.getElementById('new_password').value) 
+			var frm = document.getElementById('formChangePassword');
+			frm.reset();
+			document.getElementById('old_password_message').innerHTML = "";
+			document.getElementById('new_password_message').innerHTML = "";
+		}
+	}
+}
+
+var searchMechanism = function(){
+	if(document.getElementById('search_email').value!=""){
+		resp = serverstub.getUserDataByEmail(response['data'],document.getElementById('search_email').value)
+		if(resp['success']){
+			document.getElementById('user_search_message').style.color = 'green';
+			document.getElementById('user_search_message').innerHTML = resp['message'];
+			//emfanizei ta stoixeia
+		}else{
+			document.getElementById('user_search_message').style.color = 'red';
+			document.getElementById('user_search_message').innerHTML = resp['message'];	
+		}
+	}else{
+		document.getElementById('user_search_message').innerHTML = "";	
+	}
+	//to resp exei mesa ta stoixeia
+}
+
+
+
+
+
