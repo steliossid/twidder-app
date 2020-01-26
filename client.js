@@ -1,15 +1,24 @@
 var response = {};
+//var isLoggedIn = {};
+
 
 window.onload = function(){
   //code that is executed as the page is loaded.
-  displayView(isLoggedIn=false);
+  if(localStorage.getItem("isLoggedIn") == null){
+	  localStorage.setItem("isLoggedIn", false);
+	  displayView(isLoggedIn=localStorage.getItem("isLoggedIn"));
+  }else if(localStorage.getItem("isLoggedIn") == "true"){
+	  displayView(isLoggedIn=localStorage.getItem("isLoggedIn"));
+  }else if(localStorage.getItem("isLoggedIn") == "false"){
+	  displayView(isLoggedIn=localStorage.getItem("isLoggedIn"));
+  }
 };
 
 displayView = function(isLoggedIn){
   // the code required to display a view
   var welcome = document.getElementById("welcomeview").innerHTML;
   var profile = document.getElementById("profileview").innerHTML;
-  if (!isLoggedIn) {
+  if (isLoggedIn == "false") {
     var display = welcome;
   }
   else {
@@ -98,7 +107,9 @@ var signInMechanism = function(){
 	response = serverstub.signIn(email, password);
 
 	if(response['success']){
-		displayView(isLoggedIn=true);
+		localStorage.setItem("isLoggedIn", true);
+		displayView(isLoggedIn=localStorage.getItem("isLoggedIn"));
+		
 	}
 	if(response['message']=="Wrong username or password."){
 		document.getElementById("signin_message").style.color = 'red';
@@ -110,7 +121,8 @@ var signInMechanism = function(){
 
 var signOutMechanism = function(){
 	serverstub.signOut(response['data']);
-	displayView(isLoggedIn=false);
+	localStorage.setItem("isLoggedIn", false);
+	displayView(isLoggedIn=localStorage.getItem("isLoggedIn"));
 }
 
 openTab = function(e, tabID){
