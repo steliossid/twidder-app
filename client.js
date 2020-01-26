@@ -1,14 +1,12 @@
 window.onload = function(){
   //code that is executed as the page is loaded.
-  var welcome = document.getElementById("welcomeview").innerHTML;
-  var profile = document.getElementById("profileview").innerHTML;
-  displayView(welcome, profile);
+  displayView(isLoggedIn=false);
 };
 
-displayView = function(welcome, profile){
+displayView = function(isLoggedIn){
   // the code required to display a view
-  var isLoggedIn = false;
-
+  var welcome = document.getElementById("welcomeview").innerHTML;
+  var profile = document.getElementById("profileview").innerHTML;
   if (!isLoggedIn) {
     var display = welcome;
   }
@@ -42,7 +40,7 @@ var validSignupPassword = function(){
     flag = false;
   }
 
-  document.getElementById("signup_password_message").innerHTML = message;
+  document.getElementById("signup_message").innerHTML = message;
   return flag;
 };
 
@@ -61,26 +59,30 @@ var validSignInPassword = function(){
     message = "Password needs to be at least 5 digits!";
     flag = false;
   }
-  document.getElementById("signin_password_message").innerHTML = message;
+  document.getElementById("signin_message").innerHTML = message;
   return flag;
 };
 
 var signUpMechanism = function(){
   var m = document.getElementById("selectmenu");
   var user = {
-    email: document.getElementById('email').value,
-		password: document.getElementById('password').value,
-		firstname: document.getElementById('firstname').value,
-		familyname: document.getElementById('lastname').value,
-		gender: m.options[m.selectedIndex].value,
-		city: document.getElementById('city').value,
-		country: document.getElementById('country').value
+    email: document.getElementById('signup_username').value,
+    password: document.getElementById('signup_password').value,
+    firstname: document.getElementById('firstname').value,
+    familyname: document.getElementById('lastname').value,
+    gender: m.options[m.selectedIndex].value,
+    city: document.getElementById('city').value,
+    country: document.getElementById('country').value
   };
+  var response = serverstub.signUp(user);
 
-	var response = serverstub.signUp(user);
-  var frm = document.getElementsByName('formSignup')[0];
-	frm.reset();
-	return false;
+  if(response['success']){
+    var frm = document.getElementById('formSignup');
+  	frm.reset();
+    // User must be redirected/logged in to his/her page
+  }
+  document.getElementById("signup_message").innerHTML = response['message'];
+  return response['success'];
 };
 
 var signInMechanism = function(){
@@ -88,8 +90,9 @@ var signInMechanism = function(){
 	password = document.getElementById('signin_password').value;
 	var response = serverstub.signIn(email, password);
 
-  if(response['success'] == true){
-		alert("Signed-in");
-		document.getElementById("content").innerHTML = document.getElementById("profileview").innerHTML;
-	};
+  if(response['success']){
+    displayView(isLoggedIn=true);
+	}
+  document.getElementById("signin_message").innerHTML = response['message'];
+  return response['success'];
 };
