@@ -1,3 +1,5 @@
+var response = {};
+
 window.onload = function(){
   //code that is executed as the page is loaded.
   displayView(isLoggedIn=false);
@@ -44,15 +46,16 @@ var validSignInPassword = function(){
   var message;
 
   if(password.length>4){
-	document.getElementById('signin_password').style.color = 'green';
+	document.getElementById('signin_message').style.color = 'green';
     message = "Satisfies the length condition!";
     flag = true;
   }
   else{
-	document.getElementById('signin_password').style.color = 'red';
+	document.getElementById('signin_message').style.color = 'red';
     message = "Needs to be at least 5 digits!";
     flag = false;
   }
+  
   document.getElementById("signin_message").innerHTML = message;
   return flag;
 };
@@ -69,7 +72,7 @@ var signUpMechanism = function(){
 		city: document.getElementById('city').value,
 		country: document.getElementById('country').value
 	  };
-	  var response = serverstub.signUp(user);
+	  response = serverstub.signUp(user);
 	  if(response['message']=='User already exists.'){
 		document.getElementById("signup_username_message").style.color = 'red';
 		document.getElementById("signup_username_message").innerHTML = response['message'];
@@ -92,17 +95,22 @@ var signUpMechanism = function(){
 var signInMechanism = function(){
 	email = document.getElementById('signin_username').value;
 	password = document.getElementById('signin_password').value;
-	var response = serverstub.signIn(email, password);
+	response = serverstub.signIn(email, password);
 
 	if(response['success']){
 		displayView(isLoggedIn=true);
 	}
-	document.getElementById("signin_message").innerHTML = response['message'];
+	if(response['message']=="Wrong username or password."){
+		document.getElementById("signin_message").style.color = 'red';
+		document.getElementById("signin_message").innerHTML = response['message'];
+	}
+	
 	return response['success'];
 };
 
 var signOutMechanism = function(){
-  
+	serverstub.signOut(response['data']);
+	displayView(isLoggedIn=false);
 }
 
 openTab = function(e, tabID){
