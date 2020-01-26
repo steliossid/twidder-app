@@ -21,6 +21,16 @@ displayView = function(isLoggedIn){
   }
 };
 
+var check = function() {
+  if (document.getElementById('signup_password').value == document.getElementById('signup_rep_password').value) {
+    document.getElementById('signup_message').style.color = 'green';
+    document.getElementById('signup_message').innerHTML = 'Password matching';
+  } else {
+    document.getElementById('signup_message').style.color = 'red';
+    document.getElementById('signup_message').innerHTML = 'Password not matching';
+  }
+}
+
 var validSignupPassword = function(){
   // Validation of Password at Signup
   // 1) Both password fields must contain the same string

@@ -10,7 +10,7 @@
 				<div id="divLogo"><img src="wimage.png" alt="Logo"></div>
 				<div id="divRight">
 					<div id="divLogin">
-						<form id="formLogin" action="#" onsubmit="return validSignInPassword();" method="">
+						<form id="formLogin" onsubmit="return validSignInPassword();">
 							Username:<br>
 							<input type="email" name="signin_username" id="signin_username" required><br>
 							Password:<br>
@@ -20,13 +20,14 @@
 						</form>
 					</div>
 					<div id="divSignup">
-						<form id="formSignup" action="#" onsubmit="return validSignupPassword();" method="">
+						<form id="formSignup" onsubmit="return validSignupPassword();">
 							Username:<br>
 							<input type="email" name="signup_username" id="signup_username" required><br>
+							<span id='signup_username_message'></span><br>
 							Password:<br>
-							<input type="password" name="signup_password" id="signup_password" required><br>
+							<input type="password" name="signup_password" id="signup_password" required onkeyup='check()';><br>
 							Repeat password:<br>
-							<input type="password" name="rep_password" id="signup_rep_password" required><br>
+							<input type="password" name="rep_password" id="signup_rep_password" required onkeyup='check()';><br>
 							<span id='signup_message'></span><br>
 							First name:<br>
 							<input type="text" name="firstname" id="firstname" required><br>
