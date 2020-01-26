@@ -50,7 +50,24 @@
 		</script>
 		<script id="profileview" type="text/view">
 			<!-- Profile View content - User is signed in -->
-			<h1>Signed In Successfully!</h1>
+			<div class="tab">
+  			<button class="tablinks" id="defaultOpen" onclick="openTab(event, 'home')">Home</button>
+  			<button class="tablinks" onclick="openTab(event, 'browse')">Browse</button>
+  			<button class="tablinks" onclick="openTab(event, 'account')">Account</button>
+				<button class="tablinks" onclick="">Signout</button>
+			</div>
+			<div id="home" class="tabcontent">
+			  <h3>Home</h3>
+			  <p>This is the Home page.</p>
+			</div>
+			<div id="browse" class="tabcontent">
+			  <h3>Browse</h3>
+			  <p>This is the Browse page.</p>
+			</div>
+			<div id="account" class="tabcontent">
+			  <h3>Account</h3>
+			  <p>This is the Account page.</p>
+			</div>
 		</script>
 	</head>
 	<body>

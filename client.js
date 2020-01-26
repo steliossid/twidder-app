@@ -13,7 +13,12 @@ displayView = function(isLoggedIn){
   else {
     var display = profile;
   }
+
   document.getElementById("content").innerHTML = display;
+
+  if (display==profile){
+    document.getElementById("defaultOpen").click();
+  }
 };
 
 var validSignupPassword = function(){
@@ -96,3 +101,24 @@ var signInMechanism = function(){
   document.getElementById("signin_message").innerHTML = response['message'];
   return response['success'];
 };
+
+var signOutMechanism = function(){
+  
+}
+
+openTab = function(e, tabID){
+  var i, tabcontent, tablinks;
+
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  document.getElementById(tabID).style.display = "block";
+  e.currentTarget.className += " active";
+}
