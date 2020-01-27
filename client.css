@@ -100,12 +100,34 @@ body {
   width: 30%;
 }
 
+.others_home_column{
+  float: left;
+  width: 30%;
+}
+
 #post_row {
   margin-bottom: 5%;
 }
 
 #wall{
   margin-top: 5%;
+}
+
+#others_wall{
+  float:left;
+  margin-left: 40%;
+}
+
+#refresh_button{
+	float: right;
+	margin-top: -11%;
+    margin-right: 23%;
+}
+
+#refresh_button_others{
+	float: right;
+	margin-top: 5%;
+    margin-right: 9%;
 }
 
 div.left_user_info{

@@ -76,12 +76,12 @@
 					<div class="home_column" id="rightColHome">
 						<div id="post_row">
 							<textarea id="post_text" rows="4" cols="50" placeholder="What's happening?"></textarea>
-							<button id="post_button" type="button" onclick="postMessage(); location.reload();">Tweed</button>
+							<button id="post_button" type="button" onclick="postMessage();">Tweed</button>
 							<br><span id='post_message'></span><br>
 						</div>
 						<div id="wall">
 							<h3>My Wall</h3>
-							<button id="refresh_button" type="button">Refresh</button>
+							<button id="refresh_button" type="button" onclick="refreshWall()">Refresh</button>
 							<div id='wall_posts'></div>
 						</div>
 					</div>
@@ -95,6 +95,33 @@
 						<input class="button_search" type="submit" value="Search User" onclick="searchMechanism()"><br>
 						<span id='user_search_message'></span><br>
 					</form>
+				</div>
+				<div class="others_home_column" id="others_user_info">
+					<h3>User Details</h3>
+					<div class="left_user_info" id="left_first_name1">First name:</div>
+					<div class="right_user_info" id="right_first_name1"></div>
+					<div class="left_user_info" id="left_family_name1">Family name:</div>
+					<div class="right_user_info" id="right_family_name1"></div>
+					<div class="left_user_info" id="left_email1">Email:</div>
+					<div class="right_user_info" id="right_email1"></div>
+					<div class="left_user_info" id="left_gender1">Gender:</div>
+					<div class="right_user_info" id="right_gender1"></div>
+					<div class="left_user_info" id="left_city1">City:</div>
+					<div class="right_user_info" id="right_city1"></div>
+					<div class="left_user_info" id="left_country1">Country:</div>
+					<div class="right_user_info" id="right_country1"></div>
+				</div>
+				<div class="home_column" id="rightColHomeOthers">
+					<div id="post_row2">
+						<textarea id="post_text_others" rows="4" cols="50" placeholder="What's happening?"></textarea>
+						<button id="post_button" type="button" onclick="postMessageToOthers();">Tweed</button>
+						<br><span id='post_message_others'></span><br>
+					</div>
+					<div id="others_wall">
+						<h3>Wall</h3>
+						<div id='others_wall_posts'></div>
+					</div>
+					<button id="refresh_button_others" type="button" onclick="refreshWallOthers()">Refresh</button>
 				</div>
 			</div>
 			<div id="account" class="tabcontent">

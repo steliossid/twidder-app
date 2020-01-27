@@ -206,7 +206,8 @@ var searchMechanism = function(){
 		if(resp['success']){
 			document.getElementById('user_search_message').style.color = 'green';
 			document.getElementById('user_search_message').innerHTML = resp['message'];
-			//emfanizei ta stoixeia
+			fillUserDetailsOthers();
+			displayPostsOthers();
 		}else{
 			document.getElementById('user_search_message').style.color = 'red';
 			document.getElementById('user_search_message').innerHTML = resp['message'];
@@ -246,18 +247,23 @@ postMessage = function(){
   response = JSON.parse(localStorage.getItem("response"));
   token = response["data"];
   loggedInUser = serverstub.getUserDataByToken(token);
-
+  
   if(loggedInUser["success"]){
     message = document.getElementById("post_text").value;
     email = loggedInUser["data"]["email"];
     postMessage_res = serverstub.postMessage(token, message, email);
     if(postMessage_res["success"]){
+	  document.getElementById('post_message').style.color = 'green';
       post_message = postMessage_res["message"];
     }
     else{
+	  document.getElementById('post_message').style.color = 'red';
       post_message = "Message couldn't be posted";
     }
+	
     document.getElementById("post_message").innerHTML = post_message;
+	document.getElementById("post_text").value = "";
+	displayPosts();
   }
 }
 
@@ -266,7 +272,7 @@ displayPosts = function(){
   token = response["data"];
   userMessages = serverstub.getUserMessagesByToken(token);
   var i;
-
+  document.getElementById("wall_posts").innerHTML = "";
   n = userMessages["data"]["length"];
   if(n>0){
     for(i = 0; i < n; i++){
@@ -278,5 +284,76 @@ displayPosts = function(){
 }
 
 refreshWall = function(){
-
+	displayPosts();
 }
+
+refreshWallOthers = function(){
+	displayPostsOthers();
+}
+
+postMessageToOthers = function(){
+  response = JSON.parse(localStorage.getItem("response"));
+  token = response["data"];
+  loggedInUser = serverstub.getUserDataByToken(token);
+
+  if(loggedInUser["success"]){
+    message = document.getElementById("post_text_others").value;
+    email = document.getElementById('search_email').value;
+    postMessage_res = serverstub.postMessage(token, message, email);
+    if(postMessage_res["success"]){
+	  document.getElementById('post_message_others').style.color = 'green';
+      post_message = postMessage_res["message"];
+    }
+    else{
+	  document.getElementById('post_message_others').style.color = 'red';
+      post_message = "Message couldn't be posted";
+    }
+    document.getElementById("post_message_others").innerHTML = post_message;
+	displayPostsOthers();
+  }
+}
+
+displayPostsOthers = function(){
+  response = JSON.parse(localStorage.getItem("response"));
+  token = response["data"];
+  email = document.getElementById('search_email').value;
+  userMessages = serverstub.getUserMessagesByEmail(token,email);
+  var i;
+  document.getElementById("others_wall_posts").innerHTML = "";
+  n = userMessages["data"]["length"];
+  if(n>0){
+    for(i = 0; i < n; i++){
+      message = userMessages["data"][i]["content"];
+      document.getElementById("others_wall_posts").innerHTML +=
+            "<p>".concat(message, "</p>");
+    }
+  }
+}
+
+fillUserDetailsOthers = function(){
+  response = JSON.parse(localStorage.getItem("response"));
+  //loggedinusers = JSON.parse(localStorage.getItem("loggedinusers"));
+  //users = JSON.parse(localStorage.getItem("users"));
+  //loggedinuser_details = users[loggedinusers[response["data"]]];
+  //isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+  email = document.getElementById('search_email').value;
+  loggedinuser = serverstub.getUserDataByEmail(response["data"],email);
+
+  if(loggedinuser["success"]){
+    firstname = loggedinuser["data"]["firstname"];
+    familyname = loggedinuser["data"]["familyname"];
+    email = loggedinuser["data"]["email"];
+    gender = loggedinuser["data"]["gender"];
+    city = loggedinuser["data"]["city"];
+    country = loggedinuser["data"]["country"];
+
+    document.getElementById('right_first_name1').innerHTML = firstname;
+    document.getElementById('right_family_name1').innerHTML = familyname;
+    document.getElementById('right_email1').innerHTML = email;
+    document.getElementById('right_gender1').innerHTML = gender;
+    document.getElementById('right_city1').innerHTML = city;
+    document.getElementById('right_country1').innerHTML = country;
+  }
+}
+
+
