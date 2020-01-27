@@ -48,7 +48,7 @@ body {
 }
 
 .button_change{
-	
+
 	margin-right:65px;
 	border-radius: 25px;
 	background: #73AD21;
@@ -56,7 +56,7 @@ body {
 }
 
 .button_search{
-	
+
 	border-radius: 25px;
 	background: #73AD21;
 	color: white;
@@ -93,4 +93,28 @@ body {
 .tabcontent {
   display: none;
   padding: 6px 12px;
+}
+
+.home_column{
+  float: left;
+  width: 30%;
+}
+
+#post_row {
+  margin-bottom: 5%;
+}
+
+#wall{
+  margin-top: 5%;
+}
+
+div.left_user_info{
+  float: left;
+  clear: both;
+  margin-bottom: 5%;
+}
+
+div.right_user_info{
+  float: left;
+  margin-bottom: 5%;
 }

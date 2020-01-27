@@ -58,7 +58,33 @@
 			</div>
 			<div id="home" class="tabcontent">
 			    <h3>Home</h3>
-			    <p>This is the Home page.</p>
+			    <div class="home_column" id="user_info">
+					<h3>User Details</h3>
+					<div class="left_user_info" id="left_first_name">First name:</div>
+					<div class="right_user_info" id="right_first_name"></div>
+					<div class="left_user_info" id="left_family_name">Family name:</div>
+					<div class="right_user_info" id="right_family_name"></div>
+					<div class="left_user_info" id="left_email">Email:</div>
+					<div class="right_user_info" id="right_email"></div>
+					<div class="left_user_info" id="left_gender">Gender:</div>
+					<div class="right_user_info" id="right_gender"></div>
+					<div class="left_user_info" id="left_city">City:</div>
+					<div class="right_user_info" id="right_city"></div>
+					<div class="left_user_info" id="left_country">Country:</div>
+					<div class="right_user_info" id="right_country"></div>
+					</div>
+					<div class="home_column" id="rightColHome">
+						<div id="post_row">
+							<textarea id="post_text" rows="4" cols="50" placeholder="What's happening?"></textarea>
+							<button id="post_button" type="button" onclick="postMessage(); location.reload();">Tweed</button>
+							<br><span id='post_message'></span><br>
+						</div>
+						<div id="wall">
+							<h3>My Wall</h3>
+							<button id="refresh_button" type="button">Refresh</button>
+							<div id='wall_posts'></div>
+						</div>
+					</div>
 			</div>
 			<div id="browse" class="tabcontent">
 			    <h3>Browse</h3>

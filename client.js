@@ -1,7 +1,3 @@
-//var response = {};
-//var isLoggedIn = {};
-
-
 window.onload = function(){
   //code that is executed as the page is loaded.
   if(localStorage.getItem("isLoggedIn") == null){
@@ -29,6 +25,8 @@ displayView = function(isLoggedIn){
 
   if (display==profile){
     document.getElementById("defaultOpen").click();
+    fillUserDetails();
+    displayPosts();
   }
 };
 
@@ -217,4 +215,68 @@ var searchMechanism = function(){
 		document.getElementById('user_search_message').innerHTML = "";
 	}
 	//to resp exei mesa ta stoixeia
+}
+
+fillUserDetails = function(){
+  response = JSON.parse(localStorage.getItem("response"));
+  //loggedinusers = JSON.parse(localStorage.getItem("loggedinusers"));
+  //users = JSON.parse(localStorage.getItem("users"));
+  //loggedinuser_details = users[loggedinusers[response["data"]]];
+  //isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+  loggedinuser = serverstub.getUserDataByToken(response["data"]);
+
+  if(loggedinuser["success"]){
+    firstname = loggedinuser["data"]["firstname"];
+    familyname = loggedinuser["data"]["familyname"];
+    email = loggedinuser["data"]["email"];
+    gender = loggedinuser["data"]["gender"];
+    city = loggedinuser["data"]["city"];
+    country = loggedinuser["data"]["country"];
+
+    document.getElementById('right_first_name').innerHTML = firstname;
+    document.getElementById('right_family_name').innerHTML = familyname;
+    document.getElementById('right_email').innerHTML = email;
+    document.getElementById('right_gender').innerHTML = gender;
+    document.getElementById('right_city').innerHTML = city;
+    document.getElementById('right_country').innerHTML = country;
+  }
+}
+
+postMessage = function(){
+  response = JSON.parse(localStorage.getItem("response"));
+  token = response["data"];
+  loggedInUser = serverstub.getUserDataByToken(token);
+
+  if(loggedInUser["success"]){
+    message = document.getElementById("post_text").value;
+    email = loggedInUser["data"]["email"];
+    postMessage_res = serverstub.postMessage(token, message, email);
+    if(postMessage_res["success"]){
+      post_message = postMessage_res["message"];
+    }
+    else{
+      post_message = "Message couldn't be posted";
+    }
+    document.getElementById("post_message").innerHTML = post_message;
+  }
+}
+
+displayPosts = function(){
+  response = JSON.parse(localStorage.getItem("response"));
+  token = response["data"];
+  userMessages = serverstub.getUserMessagesByToken(token);
+  var i;
+
+  n = userMessages["data"]["length"];
+  if(n>0){
+    for(i = 0; i < n; i++){
+      message = userMessages["data"][i]["content"];
+      document.getElementById("wall_posts").innerHTML +=
+            "<p>".concat(message, "</p>");
+    }
+  }
+}
+
+refreshWall = function(){
+
 }
