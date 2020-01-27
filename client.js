@@ -1,4 +1,4 @@
-var response = {};
+//var response = {};
 //var isLoggedIn = {};
 
 
@@ -43,7 +43,7 @@ var check = function() {
 	  }
 	}else{
 		document.getElementById('signup_message').style.color = 'red';
-		document.getElementById('signup_message').innerHTML = "Password needs to be at least 5 digits!";
+		document.getElementById('signup_message').innerHTML = "Password has to be at least 5 digits!";
 	}
 }
 
@@ -64,7 +64,7 @@ var validSignInPassword = function(){
     message = "Needs to be at least 5 digits!";
     flag = false;
   }
-  
+
   document.getElementById("signin_message").innerHTML = message;
   return flag;
 };
@@ -81,7 +81,13 @@ var signUpMechanism = function(){
 		city: document.getElementById('city').value,
 		country: document.getElementById('country').value
 	  };
-	  response = serverstub.signUp(user);
+    //var temp_string = JSON.paarse
+    //serverstub.signUp(user)
+    localStorage.setItem("response", JSON.stringify(serverstub.signUp(user)));
+    response = JSON.parse(localStorage.getItem("response"));
+
+	  //response = serverstub.signUp(user);
+
 	  if(response['message']=='User already exists.'){
 		document.getElementById("signup_username_message").style.color = 'red';
 		document.getElementById("signup_username_message").innerHTML = response['message'];
@@ -96,7 +102,7 @@ var signUpMechanism = function(){
 		// User must be redirected/logged in to his/her page
 	  }
 	}
-  
+
   //document.getElementById("signup_username_message").innerHTML = response['message'];
   //return response['success'];
 };
@@ -104,22 +110,26 @@ var signUpMechanism = function(){
 var signInMechanism = function(){
 	email = document.getElementById('signin_username').value;
 	password = document.getElementById('signin_password').value;
-	response = serverstub.signIn(email, password);
+
+  localStorage.setItem("response", JSON.stringify(serverstub.signIn(email, password)));
+  response = JSON.parse(localStorage.getItem("response"));
+	//response = serverstub.signIn(email, password);
 
 	if(response['success']){
 		localStorage.setItem("isLoggedIn", true);
 		displayView(isLoggedIn=localStorage.getItem("isLoggedIn"));
-		
+
 	}
 	if(response['message']=="Wrong username or password."){
 		document.getElementById("signin_message").style.color = 'red';
 		document.getElementById("signin_message").innerHTML = response['message'];
 	}
-	
-	return response['success'];
+
+	//return response['success'];
 };
 
 var signOutMechanism = function(){
+  response = JSON.parse(localStorage.getItem("response"));
 	serverstub.signOut(response['data']);
 	localStorage.setItem("isLoggedIn", false);
 	displayView(isLoggedIn=localStorage.getItem("isLoggedIn"));
@@ -144,6 +154,7 @@ openTab = function(e, tabID){
 
 //serverstub.signIn(serverstub.getUserDataByToken(response['data'])['data']['email'],serverstub.signIn(email, password))
 var check_old_pass = function(){
+  response = JSON.parse(localStorage.getItem("response"));
 	temp = serverstub.signIn(serverstub.getUserDataByToken(response['data'])['data']['email'],document.getElementById('old_password').value)
 	if(document.getElementById('old_password').value.length>4){
 	  if (temp['success']) {
@@ -181,7 +192,7 @@ var check_pass_change = function() {
 var changepassMechanism = function(){
 	if(document.getElementById('new_password').value.length>4){
 		if ((document.getElementById('new_password').value == document.getElementById('rep_new_password').value) && temp['success']==true && (document.getElementById('new_password').value != document.getElementById('old_password').value)){
-			serverstub.changePassword(response['data'], document.getElementById('old_password').value, document.getElementById('new_password').value) 
+			serverstub.changePassword(response['data'], document.getElementById('old_password').value, document.getElementById('new_password').value)
 			var frm = document.getElementById('formChangePassword');
 			frm.reset();
 			document.getElementById('old_password_message').innerHTML = "";
@@ -191,6 +202,7 @@ var changepassMechanism = function(){
 }
 
 var searchMechanism = function(){
+  response = JSON.parse(localStorage.getItem("response"));
 	if(document.getElementById('search_email').value!=""){
 		resp = serverstub.getUserDataByEmail(response['data'],document.getElementById('search_email').value)
 		if(resp['success']){
@@ -199,15 +211,10 @@ var searchMechanism = function(){
 			//emfanizei ta stoixeia
 		}else{
 			document.getElementById('user_search_message').style.color = 'red';
-			document.getElementById('user_search_message').innerHTML = resp['message'];	
+			document.getElementById('user_search_message').innerHTML = resp['message'];
 		}
 	}else{
-		document.getElementById('user_search_message').innerHTML = "";	
+		document.getElementById('user_search_message').innerHTML = "";
 	}
 	//to resp exei mesa ta stoixeia
 }
-
-
-
-
-
