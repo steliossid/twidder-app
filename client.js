@@ -77,9 +77,10 @@ var signUpMechanism = function(){
 		familyname: document.getElementById('lastname').value,
 		gender: m.options[m.selectedIndex].value,
 		city: document.getElementById('city').value,
-		country: document.getElementById('country').value
+		country:  document.getElementById('country').value
 	  };
     //var temp_string = JSON.paarse
+	//console.log(user)
     //serverstub.signUp(user)
     localStorage.setItem("response", JSON.stringify(serverstub.signUp(user)));
     response = JSON.parse(localStorage.getItem("response"));
