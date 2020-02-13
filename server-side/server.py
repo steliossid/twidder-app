@@ -76,7 +76,7 @@ def sign_out():
 def change_password():
     token = request.headers.get('Token')
     data = request.get_json()
-    if 'token' in data and 'oldpassword' in data and 'newpassword' in data:
+    if 'oldpassword' in data and 'newpassword' in data:
         if 5 <= len(data['newpassword']) <= 30:
             result = database_helper.change_password(token, data['oldpassword'], data['newpassword'])
             if result:
