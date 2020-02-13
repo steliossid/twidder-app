@@ -5,8 +5,8 @@ create table users(
     familyname varchar(30),
     gender varchar(30),
     city varchar(30),
-    country varchar(30), p
-    rimary key(email)
+    country varchar(30),
+    primary key(email)
 );
 
 create table wall(

@@ -60,6 +60,7 @@ def sign_out(token):
 
 def change_password(token, oldpassword, newpassword):
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
+    token_exists.close()
     if token_exists[0][0] > 0:
         user_email = get_db().execute('select email from loggedinusers where token like ?', [token]).fetchall()[0][0]
         try:
@@ -77,6 +78,7 @@ def change_password(token, oldpassword, newpassword):
 
 def get_user_data_by_token(token):
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
+    token_exists.close()
     if token_exists[0][0] > 0:
         user_email = get_db().execute('select email from loggedinusers where token like ?', [token]).fetchall()[0][0]
         cursor = get_db().execute('select * from users where email like ?', [user_email])
@@ -94,6 +96,7 @@ def get_user_data_by_token(token):
 
 def get_user_data_by_email(email, token):
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
+    token_exists.close()
     if token_exists[0][0] > 0:
         cursor = get_db().execute('select * from users where email like ?', [email])
         rows = cursor.fetchall()
@@ -110,6 +113,7 @@ def get_user_data_by_email(email, token):
 
 def get_user_messages_by_token(token):
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
+    token_exists.close()
     if token_exists[0][0] > 0:
         user_email = get_db().execute('select email from loggedinusers where token like ?', [token]).fetchall()[0][0]
         cursor = get_db().execute('select * from wall where email like ?', [user_email])
@@ -125,6 +129,7 @@ def get_user_messages_by_token(token):
 
 def get_user_messages_by_email(email, token):
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
+    token_exists.close()
     if token_exists[0][0] > 0:
         cursor = get_db().execute('select * from wall where email like ?', [email])
         rows = cursor.fetchall()
@@ -139,6 +144,7 @@ def get_user_messages_by_email(email, token):
 
 def post_message(email, content, token):
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
+    token_exists.close()
     if token_exists[0][0] > 0:
         writer = get_db().execute('select email from loggedinusers where token like ?', [token]).fetchall()[0][0]
         try:

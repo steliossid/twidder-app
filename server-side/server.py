@@ -14,14 +14,14 @@ def token_gen(n):
     return ''.join(random.choice(letters) for i in range(n))
 
 
-@app.route('/users/get/<email>', methods=['GET'])
+@app.route('/find_user/<email>', methods=['GET'])
 def find_user(email=None):
     if email is not None:
         result = database_helper.find_user(email)
         return jsonify(result)
 
 
-@app.route('/users/sign-in', methods=['PUT'])
+@app.route('/users/sign_in', methods=['PUT'])
 def sign_in():
     data = request.get_json()
     if 'email' in data and 'password' in data:
@@ -30,7 +30,6 @@ def sign_in():
             token = token_gen(35)
         else:
             return '', 400
-        #token = "3ftr3fte3dy3f"
         result = database_helper.sign_in(token, user['email'])
         if result:
             return json.dumps({"success": True, "message": "Successfully signed in.", "data": token}), 200
@@ -43,8 +42,11 @@ def sign_in():
 @app.route('/users/sign_up', methods=['PUT'])
 def sign_up():
     data = request.get_json()
-    if 'email' in data and 'password' in data and 'firstname' in data and 'familyname' in data and 'gender' in data and 'city' in data and 'country' in data:
-        if len(data['email']) <= 100 and len(data['password']) >= 5:
+    if 'email' in data and 'password' in data and 'firstname' in data and 'familyname' in data \
+            and 'gender' in data and 'city' in data and 'country' in data:
+        if len(data['email']) <= 30 and 5 <= len(data['password']) <= 30 \
+                and len(data['fistname']) <= 30 and len(data['familyname']) <= 30 and len(data['gender']) <= 30 \
+                and len(data['city']) <= 30 and len(data['country']) <= 30:
             result = database_helper.sign_up(data['email'], data['password'], data['firstname'], data['familyname'],
                                              data['gender'], data['city'], data['country'])
             if result:
@@ -69,11 +71,11 @@ def sign_out(token=None):
         return '', 400
 
 
-@app.route('/users/change-password', methods=['PUT'])
+@app.route('/users/change_password', methods=['PUT'])
 def change_password():
     data = request.get_json()
     if 'token' in data and 'oldpassword' in data and 'newpassword' in data:
-        if len(data['newpassword']) <= 30:
+        if 5 <= len(data['newpassword']) <= 30:
             result = database_helper.change_password(data['token'], data['oldpassword'], data['newpassword'])
             if result:
                 return json.dumps({"success": "true", "message": "Password changed!"}), 200
@@ -100,11 +102,10 @@ def get_user_data_by_token(token=None):
 def get_user_data_by_email(email=None, token=None):
     if email is not None and token is not None:
         result = database_helper.get_user_data_by_email(email, token)
-        if result == False or result == None:
-            return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
-        else:
+        if result:
             return json.dumps({"success": "true", "message": "Requested user found!", "data": result}), 200
-            # return jsonify(result)
+        else:
+            return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
 
 
 @app.route('/users/get_user_messages_by_token/<token>', methods=['GET'])
@@ -121,10 +122,10 @@ def get_user_messages_by_token(token=None):
 def get_user_messages_by_email(email=None, token=None):
     if email is not None and token is not None:
         result = database_helper.get_user_messages_by_email(email, token)
-        if result == False or result == None:
-            return json.dumps({"success": "true", "message": "Something went wrong!"}), 500
-        else:
+        if result:
             return json.dumps({"success": "true", "message": "Requested wall found!", "data": result}), 200
+        else:
+            return json.dumps({"success": "true", "message": "Something went wrong!"}), 500
 
 
 @app.route('/users/post_message', methods=['PUT'])
