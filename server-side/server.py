@@ -59,8 +59,9 @@ def sign_up():
         return '', 400
 
 
-@app.route('/users/sign_out/<token>', methods=['GET'])
-def sign_out(token=None):
+@app.route('/users/sign_out', methods=['PUT'])
+def sign_out():
+    token = request.headers.get('Token')
     if token is not None:
         result = database_helper.sign_out(token)
         if result:
@@ -73,10 +74,11 @@ def sign_out(token=None):
 
 @app.route('/users/change_password', methods=['PUT'])
 def change_password():
+    token = request.headers.get('Token')
     data = request.get_json()
     if 'token' in data and 'oldpassword' in data and 'newpassword' in data:
         if 5 <= len(data['newpassword']) <= 30:
-            result = database_helper.change_password(data['token'], data['oldpassword'], data['newpassword'])
+            result = database_helper.change_password(token, data['oldpassword'], data['newpassword'])
             if result:
                 return json.dumps({"success": "true", "message": "Password changed!"}), 200
             else:
@@ -87,8 +89,9 @@ def change_password():
         return '', 400
 
 
-@app.route('/users/get_user_data_by_token/<token>', methods=['GET'])
-def get_user_data_by_token(token=None):
+@app.route('/users/get_user_data_by_token/', methods=['GET'])
+def get_user_data_by_token():
+    token = request.headers.get('Token')
     if token is not None:
         result = database_helper.get_user_data_by_token(token)
         if result:
@@ -98,8 +101,9 @@ def get_user_data_by_token(token=None):
             return json.dumps({"success": "true", "message": "Something went wrong!"}), 500
 
 
-@app.route('/users/get_user_data_by_email/<email>,<token>', methods=['GET'])
-def get_user_data_by_email(email=None, token=None):
+@app.route('/users/get_user_data_by_email/<email>', methods=['GET'])
+def get_user_data_by_email(email=None):
+    token = request.headers.get('Token')
     if email is not None and token is not None:
         result = database_helper.get_user_data_by_email(email, token)
         if result:
@@ -108,8 +112,9 @@ def get_user_data_by_email(email=None, token=None):
             return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
 
 
-@app.route('/users/get_user_messages_by_token/<token>', methods=['GET'])
-def get_user_messages_by_token(token=None):
+@app.route('/users/get_user_messages_by_token/', methods=['GET'])
+def get_user_messages_by_token():
+    token = request.headers.get('Token')
     if token is not None:
         result = database_helper.get_user_messages_by_token(token)
         if result:
@@ -118,8 +123,9 @@ def get_user_messages_by_token(token=None):
             return json.dumps({"success": "true", "message": "Something went wrong!"}), 500
 
 
-@app.route('/users/get_user_messages_by_email/<email>,<token>', methods=['GET'])
-def get_user_messages_by_email(email=None, token=None):
+@app.route('/users/get_user_messages_by_email/<email>', methods=['GET'])
+def get_user_messages_by_email(email=None):
+    token = request.headers.get('Token')
     if email is not None and token is not None:
         result = database_helper.get_user_messages_by_email(email, token)
         if result:
