@@ -63,6 +63,7 @@ def change_password(token, oldpassword, newpassword):
     if token_exists[0][0] > 0:
         user_email = get_db().execute('select email from loggedinusers where token like ?', [token]).fetchall()[0][0]
         try:
+            # TODO: check if oldpassowrd is in database table
             get_db().execute('update users '
                              'set password = ? '
                              'where email in '
@@ -84,7 +85,7 @@ def get_user_data_by_token(token):
         cursor.close()
         result = []
         for index in range(len(rows)):
-            result.append({'email': rows[index][0], 'password': rows[index][1], 'firstname': rows[index][2],
+            result.append({'email': rows[index][0], 'firstname': rows[index][2],
                            'familyname': rows[index][3], 'gender': rows[index][4],
                            'city': rows[index][5], 'country': rows[index][6]})
         return result
@@ -93,6 +94,7 @@ def get_user_data_by_token(token):
 
 
 def get_user_data_by_email(email, token):
+    # TODO: if token or email doesnt exist, message back. Handle email does not exist.
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
     if token_exists[0][0] > 0:
         cursor = get_db().execute('select * from users where email like ?', [email])
@@ -100,7 +102,7 @@ def get_user_data_by_email(email, token):
         cursor.close()
         result = []
         for index in range(len(rows)):
-            result.append({'email': rows[index][0], 'password': rows[index][1], 'firstname': rows[index][2],
+            result.append({'email': rows[index][0], 'firstname': rows[index][2],
                            'familyname': rows[index][3], 'gender': rows[index][4],
                            'city': rows[index][5], 'country': rows[index][6]})
         return result
@@ -109,6 +111,7 @@ def get_user_data_by_email(email, token):
 
 
 def get_user_messages_by_token(token):
+    # TODO: if token doesnt exist, message back
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
     if token_exists[0][0] > 0:
         user_email = get_db().execute('select email from loggedinusers where token like ?', [token]).fetchall()[0][0]
