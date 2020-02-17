@@ -12,7 +12,7 @@ create table users(
 create table wall(
     email varchar(30),
     writer varchar(30),
-    content varchar(30)
+    content varchar(120)
 );
 
 create table loggedinusers(

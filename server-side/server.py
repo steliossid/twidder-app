@@ -26,7 +26,7 @@ def sign_in():
     data = request.get_json()
     if 'email' in data and 'password' in data:
         user = find_user(data['email']).get_json()[0]
-        if user['email'] != None and user['password'] == data['password']:
+        if user['email'] is not None and user['password'] == data['password']:
             token = token_gen(35)
         else:
             return '', 400
@@ -45,7 +45,7 @@ def sign_up():
     if 'email' in data and 'password' in data and 'firstname' in data and 'familyname' in data \
             and 'gender' in data and 'city' in data and 'country' in data:
         if len(data['email']) <= 30 and 5 <= len(data['password']) <= 30 \
-                and len(data['fistname']) <= 30 and len(data['familyname']) <= 30 and len(data['gender']) <= 30 \
+                and len(data['firstname']) <= 30 and len(data['familyname']) <= 30 and len(data['gender']) <= 30 \
                 and len(data['city']) <= 30 and len(data['country']) <= 30:
             result = database_helper.sign_up(data['email'], data['password'], data['firstname'], data['familyname'],
                                              data['gender'], data['city'], data['country'])
@@ -136,10 +136,11 @@ def get_user_messages_by_email(email=None):
 
 @app.route('/users/post_message', methods=['PUT'])
 def post_message():
+    token = request.headers.get('Token')
     data = request.get_json()
-    if 'token' in data and 'content' in data and 'email' in data:
-        if len(data['email']) <= 100:
-            result = database_helper.post_message(data['email'], data['content'], data['token'])
+    if token is not None and 'content' in data and 'email' in data:
+        if len(data['email']) <= 30 and len(data['content']) <= 120:
+            result = database_helper.post_message(data['email'], data['content'], token)
             if result:
                 return json.dumps({"success": "true", "message": "Message posted to the wall!"}), 200
             else:
