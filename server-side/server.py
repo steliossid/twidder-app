@@ -93,9 +93,9 @@ def change_password():
 def get_user_data_by_token():
     token = request.headers.get('Token')
     if token is not None:
-        result = database_helper.get_user_data_by_token(token)[0]
+        result = database_helper.get_user_data_by_token(token)
         if result:
-            return json.dumps({"success": "true", "message": "Requested user found!", "data": result}), 200
+            return json.dumps({"success": "true", "message": "Requested user found!", "data": result[0]}), 200
 
         else:
             return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
@@ -105,9 +105,9 @@ def get_user_data_by_token():
 def get_user_data_by_email(email=None):
     token = request.headers.get('Token')
     if email is not None and token is not None:
-        result = database_helper.get_user_data_by_email(email, token)[0]
+        result = database_helper.get_user_data_by_email(email, token)
         if result:
-            return json.dumps({"success": "true", "message": "Requested user found!", "data": result}), 200
+            return json.dumps({"success": "true", "message": "Requested user found!", "data": result[0]}), 200
         else:
             return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
 
@@ -118,7 +118,7 @@ def get_user_messages_by_token():
     if token is not None:
         result = database_helper.get_user_messages_by_token(token)
         if result:
-            return json.dumps({"success": "true", "message": "Requested wall found!", "data": result}), 200
+            return json.dumps({"success": "true", "message": "Requested wall found!", "data": result[0]}), 200
         else:
             return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
 
@@ -127,9 +127,9 @@ def get_user_messages_by_token():
 def get_user_messages_by_email(email=None):
     token = request.headers.get('Token')
     if email is not None and token is not None:
-        result = database_helper.get_user_messages_by_email(email, token)[0]
+        result = database_helper.get_user_messages_by_email(email, token)
         if result:
-            return json.dumps({"success": "true", "message": "Requested wall found!", "data": result}), 200
+            return json.dumps({"success": "true", "message": "Requested wall found!", "data": result[0]}), 200
         else:
             return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
 
