@@ -38,6 +38,35 @@ def sign_in(token, email):
     except:
         return False
 
+def check_old_password(email,password):
+    try:
+        cursor = get_db().execute('select * from users where email = ?  AND password = ?;',[email,password])
+        rows = cursor.fetchall()
+        cursor.close()
+        result = []
+        if len(rows)>0:
+            return True
+    except:
+        return False
+
+
+def check_if_user_signed_in():
+    cursor=get_db().execute('select count(*) from loggedinusers')
+    rows = cursor.fetchall()
+    cursor.close()
+    if rows[0][0] > 0:
+        return True
+    else:
+        return False
+
+
+def get_logged_in_data():
+
+    cursor = get_db().execute('select token from loggedinusers')
+    result = cursor.fetchall()[0][0]
+    cursor.close()
+    return result
+
 
 def sign_up(email, password, firstname, familyname, gender, city, country):
     try:

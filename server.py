@@ -42,6 +42,32 @@ def sign_in():
     else:
         return '', 400
 
+@app.route('/users/check_old_password/<email>,<password>', methods=['GET'])
+def check_old_password(email=None,password=None):
+    if email and password:
+        result = database_helper.check_old_password(email,password)
+        if result:
+            return json.dumps({"success": "true", "message": "Password matching!"}), 200
+        else:
+            return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
+    else:
+        return '', 400
+
+@app.route('/users/check_if_user_signed_in/', methods=['GET'])
+def check_if_user_signed_in():
+    result = database_helper.check_if_user_signed_in()
+    if result:
+        return json.dumps({"success": "true", "message": "User is logged in!"}), 200
+    else:
+        return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
+
+@app.route('/users/get_logged_in_data/', methods=['GET'])
+def get_logged_in_data():
+    result = database_helper.get_logged_in_data()
+    if result:
+        return json.dumps({"success": "true", "message": "User's data!", "data": result}), 200
+    else:
+        return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
 
 @app.route('/users/sign_up/', methods=['POST'])
 def sign_up():
