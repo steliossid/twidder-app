@@ -744,7 +744,6 @@ postMessageToOthers = function(){  ///////DONE
                                   document.getElementById('post_message_others').style.color = 'red';
                                   post_message = "Message couldn't be posted";
                                 }
-                                window.alert("ASF");
                                 document.getElementById("post_message_others").innerHTML = post_message;
           	                    document.getElementById("post_text_others").value = "";
                               }else if (this.status == 500){

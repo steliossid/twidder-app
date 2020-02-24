@@ -10,7 +10,7 @@ app.debug = True
 
 @app.route('/')
 def root():
-    return send_from_directory('D:/LiU/Semester 2/Period 1/Web Programming/Lab 4/static', 'client.html')
+    return send_from_directory('static', 'client.html')
 
 
 def token_gen(n):
