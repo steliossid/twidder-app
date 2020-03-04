@@ -1,6 +1,6 @@
 create table users(
     email varchar(30),
-    password varchar(30),
+    password varchar(60),
     firstname varchar(30),
     familyname varchar(30),
     gender varchar(30),

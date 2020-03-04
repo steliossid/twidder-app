@@ -22,7 +22,7 @@ def find_user(email):
     cursor = get_db().execute('select * from users where email like ?', [email])
     rows = cursor.fetchall()
     cursor.close()
-    if len(rows)>0:
+    if len(rows) > 0:
         result = []
         for index in range(len(rows)):
             result.append({'email': rows[index][0], 'password': rows[index][1],
@@ -42,25 +42,27 @@ def sign_in(token, email):
     except:
         return False
 
-def check_old_password(email,password):
+
+def check_old_password(email, password):
     try:
-        cursor = get_db().execute('select * from users where email = ?  AND password = ?;',[email,password])
+        cursor = get_db().execute('select * from users where email = ?  AND password = ?;', [email, password])
         rows = cursor.fetchall()
         cursor.close()
-        result = []
-        if len(rows)>0:
+        if len(rows) > 0:
             return True
     except:
         return False
 
+
 def delete_loggedinuser(email):
     try:
-        email=email.replace('"', '')
+        email = email.replace('"', '')
         result = get_db().execute("delete from loggedinusers where email like ?", [email])
         get_db().commit()
         return True
     except:
         return False
+
 
 def sign_up(email, password, firstname, familyname, gender, city, country):
     try:
