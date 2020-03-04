@@ -12,17 +12,17 @@
 				<div id="divLogo"><img src="/static/wimage.png" alt="Logo"></div>
 				<div id="divRight">
 					<div id="divLogin">
-						<form name="formLogin" id="formLogin" onsubmit="return false">
+						<form name="formLogin" id="formLogin" onsubmit="signInMechanism();return false">
 							Username:<br>
 							<input type="email" name="signin_username" id="signin_username" placeholder="E-mail" required><br>
 							Password:<br>
 							<input type="password" name="signin_password" id="signin_password" required onkeyup='validSignInPassword()'><br>
 							<span id='signin_message'></span><br>
-							<input class="button" type="submit" value="Login" onclick="signInMechanism()">
+							<input class="button" type="submit" value="Login">
 						</form>
 					</div>
 					<div id="divSignup">
-						<form name="formSignup" id="formSignup" onsubmit="return false">
+						<form name="formSignup" id="formSignup" onsubmit="signUpMechanism();return false">
 							Username:<br>
 							<input type="email" name="signup_username" id="signup_username" placeholder="E-mail" required><br>
 							<span id='signup_username_message'></span><br>
@@ -46,7 +46,7 @@
 							<input type="text" name="city" id="city" required><br>
 							Country:<br>
 							<input type="text" name="country" id="country" required><br><br>
-							<input class="button" type="submit" value="Sign up" onclick="signUpMechanism()">
+							<input class="button" type="submit" value="Sign up">
 						</form>
 					</div>
 				</div>

@@ -22,16 +22,20 @@ def find_user(email):
     cursor = get_db().execute('select * from users where email like ?', [email])
     rows = cursor.fetchall()
     cursor.close()
-    result = []
-    for index in range(len(rows)):
-        result.append({'email': rows[index][0], 'password': rows[index][1],
-                       'firstname': rows[index][2], 'familyname': rows[index][3],
-                       'gender': rows[index][4], 'city': rows[index][5], 'country': rows[index][6]})
+    if len(rows)>0:
+        result = []
+        for index in range(len(rows)):
+            result.append({'email': rows[index][0], 'password': rows[index][1],
+                           'firstname': rows[index][2], 'familyname': rows[index][3],
+                           'gender': rows[index][4], 'city': rows[index][5], 'country': rows[index][6]})
+    else:
+        result = False
     return result
 
 
 def sign_in(token, email):
     try:
+        get_db().execute("delete from loggedinusers where email like ?;", [email])
         get_db().execute("insert into loggedinusers values(?,?);", [email, token])
         get_db().commit()
         return True
@@ -49,24 +53,14 @@ def check_old_password(email,password):
     except:
         return False
 
-
-def check_if_user_signed_in():
-    cursor=get_db().execute('select count(*) from loggedinusers')
-    rows = cursor.fetchall()
-    cursor.close()
-    if rows[0][0] > 0:
+def delete_loggedinuser(email):
+    try:
+        email=email.replace('"', '')
+        result = get_db().execute("delete from loggedinusers where email like ?", [email])
+        get_db().commit()
         return True
-    else:
+    except:
         return False
-
-
-def get_logged_in_data():
-
-    cursor = get_db().execute('select token from loggedinusers')
-    result = cursor.fetchall()[0][0]
-    cursor.close()
-    return result
-
 
 def sign_up(email, password, firstname, familyname, gender, city, country):
     try:
