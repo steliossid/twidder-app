@@ -298,9 +298,7 @@ var changepassMechanism = function() { /////DONE
                             }
                         } else if (this.status == 500) {
                             console.log("Something went wrong!")
-                        } else {
-                            console.log("Something went wrong!")
-                         }
+                        }
                     }
                 };
                 req.send(JSON.stringify(change_pass))
@@ -466,8 +464,19 @@ displayPosts = function() { /////////DONE
                         if (n > 0) {
                             for (i = 0; i < n; i++) {
                                 message = userMessages["data"][i]["content"];
-                                document.getElementById("wall_posts").innerHTML +=
-                                    "<p>".concat(message, "</p>");
+                                if (message.endsWith(".png")) {
+                                    image_path_str = "<p><img src=/static/uploaded/";
+                                    document.getElementById("wall_posts").innerHTML += image_path_str.concat(message).concat(" width=50px height=50px/></p>");
+                                } else if (message.endsWith(".mp4")) {
+                                    video_path_str = "<p><video width=200 controls><source src=/static/uploaded/";
+                                    document.getElementById("wall_posts").innerHTML += video_path_str.concat(message).concat(" type=video/mp4></video></p>");
+                                } else if (message.endsWith(".mpeg")) {
+                                    audio_path_str = "<p><audio class=audio_tags controls><source src=/static/uploaded/";
+                                    document.getElementById("wall_posts").innerHTML += audio_path_str.concat(message).concat(" type=audio/mpeg></audio></p>");
+                                } else {
+                                    document.getElementById("wall_posts").innerHTML +=
+                                        "<p>".concat(message, "</p>");
+                                }
                             }
                         }
                     } else {
@@ -569,8 +578,19 @@ displayPostsOthers = function() { //////////DONE
                         if (n > 0) {
                             for (i = 0; i < n; i++) {
                                 message = userMessages["data"][i]["content"];
-                                document.getElementById("others_wall_posts").innerHTML +=
-                                    "<p>".concat(message, "</p>");
+                                if (message.endsWith(".png")) {
+                                    image_path_str = "<p><img src=/static/uploaded/";
+                                    document.getElementById("others_wall_posts").innerHTML += image_path_str.concat(message).concat(" width=50px height=50px/></p>");
+                                } else if (message.endsWith(".mp4")) {
+                                    video_path_str = "<p><video width=200 controls><source src=/static/uploaded/";
+                                    document.getElementById("others_wall_posts").innerHTML += video_path_str.concat(message).concat(" type=video/mp4></video></p>");
+                                } else if (message.endsWith(".mpeg")) {
+                                    audio_path_str = "<p><audio class=audio_tags controls><source src=/static/uploaded/";
+                                    document.getElementById("others_wall_posts").innerHTML += audio_path_str.concat(message).concat(" type=audio/mpeg></audio></p>");
+                                } else {
+                                    document.getElementById("others_wall_posts").innerHTML +=
+                                        "<p>".concat(message, "</p>");
+                                }
                             }
                         }
                     } else {

@@ -18,7 +18,7 @@ def root():
     return send_from_directory('static', 'client.html')
 
 
-def token_gen(n):
+def token_generator(n):
     letters = string.ascii_letters + "0123456789"
     return ''.join(random.choice(letters) for i in range(n))
 
@@ -55,7 +55,7 @@ def sign_in():
         if find_user(data['email']):
             user = find_user(data['email']).get_json()[0]
             if user['email'] is not None and bcrypt.check_password_hash(user['password'], data['password']):
-                token = token_gen(35)
+                token = token_generator(35)
             else:
                 return '', 400
             result = database_helper.sign_in(token, user['email'])
