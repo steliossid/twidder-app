@@ -21,23 +21,14 @@ def run_tests():
         message2 = "This is an automated message from Selenium (Browse Tab)"
         new_password = "12345"
         test_sign_up(email, password, repeat_password, "Test", "User", "Male", "Linkoping", "Sweden")
-        time.sleep(1)
         test_sign_in(email, password)
-        time.sleep(1)
         test_post_message(message1)
-        time.sleep(1)
         driver.find_element_by_name("browse").send_keys(Keys.RETURN)
-        time.sleep(1)
         test_search_user(email)
-        time.sleep(1)
         test_post_message_to_others(message2)
-        time.sleep(1)
         driver.find_element_by_name("account").send_keys(Keys.RETURN)
-        time.sleep(1)
         test_change_password(oldpassword=password, newpassword=new_password, repeat_newpassword=new_password)
-        time.sleep(1)
         test_logout()
-        time.sleep(3)
         driver.close()
     else:
         print("Please specify the browser you would like to run the tests! (Chrome or Firefox)")
@@ -55,6 +46,7 @@ def test_sign_in(email, password):
     time.sleep(1)
 
     login_button.send_keys(Keys.RETURN)
+    time.sleep(1)
 
 
 def test_sign_up(email, password, repeat_password, firstname, familyname, gender, city, country):
@@ -86,6 +78,7 @@ def test_sign_up(email, password, repeat_password, firstname, familyname, gender
     time.sleep(1)
 
     signup_button.send_keys(Keys.RETURN)
+    time.sleep(1)
 
 
 def test_post_message(message):
@@ -96,6 +89,7 @@ def test_post_message(message):
     time.sleep(1)
 
     post_button.send_keys(Keys.RETURN)
+    time.sleep(1)
 
 
 def test_search_user(email):
@@ -106,6 +100,7 @@ def test_search_user(email):
     time.sleep(1)
 
     search_button.send_keys(Keys.RETURN)
+    time.sleep(1)
 
 
 def test_post_message_to_others(message):
@@ -116,6 +111,7 @@ def test_post_message_to_others(message):
     time.sleep(1)
 
     post_button.send_keys(Keys.RETURN)
+    time.sleep(1)
 
 
 def test_change_password(oldpassword, newpassword, repeat_newpassword):
@@ -132,11 +128,13 @@ def test_change_password(oldpassword, newpassword, repeat_newpassword):
     time.sleep(1)
 
     change_password_button.send_keys(Keys.RETURN)
+    time.sleep(1)
 
 
 def test_logout():
     logout_button = driver.find_element_by_id("buttonSignOut")
     logout_button.send_keys(Keys.RETURN)
+    time.sleep(3)
 
 
 if __name__ == '__main__':
