@@ -4,7 +4,7 @@ Lab Assignment for the Web Programming course (732A56) - LiU
 - Client-side Development using HTML, Javascript and CSS
 - Server-side Development using Python and SQL
 - Asynchronous Client-Server Communication
-- Extras
+- Responiseness, Password Protection, File Uploads, Selenium tests and more
 
 For the server-side you need to install:
 
