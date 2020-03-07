@@ -15,11 +15,10 @@ driver.get("http://127.0.0.1:5000/")
 
 def run_tests():
     if len(sys.argv[1:]) >= 1:
-        email = "testuser234245@gmail.com"
-        password = repeat_password = "aaaaa"
+        email = "testuser_stelios1@gmail.com"
+        password = repeat_password = "password"
         message1 = "This is an automated message from Selenium (Home Tab)"
         message2 = "This is an automated message from Selenium (Browse Tab)"
-        new_password = "12345"
         test_sign_up(email, password, repeat_password, "Test", "User", "Male", "Linkoping", "Sweden")
         test_sign_in(email, password)
         test_post_message(message1)
@@ -27,6 +26,7 @@ def run_tests():
         test_search_user(email)
         test_post_message_to_others(message2)
         driver.find_element_by_name("account").send_keys(Keys.RETURN)
+        new_password = "newpassword"
         test_change_password(oldpassword=password, newpassword=new_password, repeat_newpassword=new_password)
         test_logout()
         driver.close()
