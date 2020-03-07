@@ -1,151 +1,233 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Twidder Application</title>
-		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico"/>
-		<link href="/static/client.css" type="text/css" rel="stylesheet">
-		<script src="/static/client.js" type="text/javascript"></script>
-		<!---<script src="serverstub.js" type="text/javascript"></script>-->
-		<script id="welcomeview" type="text/view">
-			<!-- Welcome View content - User not signed in -->
-			<div id="divParent">
-				<div id="divLogo"><img src="/static/wimage.png" alt="Logo"></div>
-				<div id="divRight">
-					<div id="divLogin">
-						<form name="formLogin" id="formLogin" onsubmit="signInMechanism();return false">
-							Username:<br>
-							<input type="email" name="signin_username" id="signin_username" placeholder="E-mail" required><br>
-							Password:<br>
-							<input type="password" name="signin_password" id="signin_password" required onkeyup='validSignInPassword()'><br>
-							<span id='signin_message'></span><br>
-							<input class="button" type="submit" value="Login" name="login_button">
-						</form>
-					</div>
-					<div id="divSignup">
-						<form name="formSignup" id="formSignup" onsubmit="signUpMechanism();return false">
-							Username:<br>
-							<input type="email" name="signup_username" id="signup_username" placeholder="E-mail" required><br>
-							<span id='signup_username_message'></span><br>
-							Password:<br>
-							<input type="password" name="signup_password" id="signup_password" required onkeyup='check()'><br>
-							Repeat password:<br>
-							<input type="password" name="rep_password" id="signup_rep_password" required onkeyup='check()'><br>
-							<span id='signup_message'></span><br>
-							First name:<br>
-							<input type="text" name="firstname" id="firstname" required><br>
-							Last name:<br>
-							<input type="text" name="lastname" id="lastname" required><br>
-							Gender:<br>
-							<select id="selectmenu" name="gender" required>
-							  <option value="" disabled selected>Select gender</option>
-							  <option value="Male">Male</option>
-							  <option value="Female">Female</option>
-							  <option value="Other">Other</option>
-							</select><br>
-							City:<br>
-							<input type="text" name="city" id="city" required><br>
-							Country:<br>
-							<input type="text" name="country" id="country" required><br><br>
-							<input class="button" type="submit" value="Sign up" name="signup_button">
-						</form>
-					</div>
-				</div>
-			</div>
-		</script>
-		<script id="profileview" type="text/view">
-			<!-- Profile View content - User is signed in -->
-			<div class="tab">
-				<button type="button" class="tablinks" id="defaultOpen" onclick="openTab(event, 'home')">Home</button>
-				<button type="button" class="tablinks" onclick="openTab(event, 'browse')">Browse</button>
-				<button type="button" class="tablinks" onclick="openTab(event, 'account')">Account</button>
-				<button id="buttonSignOut" type="button" class="tablinks" onclick="signOutMechanism()">Log Out</button>
-			</div>
-			<div id="home" class="tabcontent">
-			    <h3>Home</h3>
-			    <div class="home_column" id="user_info">
-					<h3>User Details</h3>
-					<div class="left_user_info" id="left_first_name">First name:</div>
-					<div class="right_user_info" id="right_first_name"></div>
-					<div class="left_user_info" id="left_family_name">Family name:</div>
-					<div class="right_user_info" id="right_family_name"></div>
-					<div class="left_user_info" id="left_email">Email:</div>
-					<div class="right_user_info" id="right_email"></div>
-					<div class="left_user_info" id="left_gender">Gender:</div>
-					<div class="right_user_info" id="right_gender"></div>
-					<div class="left_user_info" id="left_city">City:</div>
-					<div class="right_user_info" id="right_city"></div>
-					<div class="left_user_info" id="left_country">Country:</div>
-					<div class="right_user_info" id="right_country"></div>
-					</div>
-					<div class="home_column" id="rightColHome">
-						<div id="post_row">
-							<textarea id="post_text" rows="4" cols="37" placeholder="What's happening?"></textarea>
-							<br><button class="button" id="post_button" type="button" onclick="postMessage();">Tweed</button>
-							<br><span id='post_message'></span><br>
-						</div>
-						<div id="wall">
-							<h3>My Wall</h3>
-							<button class="button" id="refresh_button" type="button" onclick="refreshWall()">Refresh</button>
-							<div id='wall_posts'></div>
-						</div>
-					</div>
-			</div>
-			<div id="browse" class="tabcontent">
-			    <h3>Browse</h3>
-				<div id="divSearch">
-					<form name="search" id="search" onsubmit="return false">
-						Search:
-						<input type="email" name="search_email" id="search_email" placeholder="E-mail" required>
-						<input class="button_search" type="submit" value="Search User" onclick="searchMechanism()"><br>
-						<span id='user_search_message'></span><br>
-					</form>
-				</div>
-				<div class="others_home_column" id="others_user_info">
-					<h3>User Details</h3>
-					<div class="left_user_info" id="left_first_name1">First name:</div>
-					<div class="right_user_info" id="right_first_name1"></div>
-					<div class="left_user_info" id="left_family_name1">Family name:</div>
-					<div class="right_user_info" id="right_family_name1"></div>
-					<div class="left_user_info" id="left_email1">Email:</div>
-					<div class="right_user_info" id="right_email1"></div>
-					<div class="left_user_info" id="left_gender1">Gender:</div>
-					<div class="right_user_info" id="right_gender1"></div>
-					<div class="left_user_info" id="left_city1">City:</div>
-					<div class="right_user_info" id="right_city1"></div>
-					<div class="left_user_info" id="left_country1">Country:</div>
-					<div class="right_user_info" id="right_country1"></div>
-				</div>
-				<div class="home_column" id="rightColHomeOthers">
-					<div id="post_row2">
-						<textarea id="post_text_others" rows="4" cols="50" placeholder="What's happening?"></textarea>
-						<button class="button" id="post_button_others" type="button" onclick="postMessageToOthers();">Tweed</button>
-						<br><span id='post_message_others'></span><br>
-					</div>
-					<div id="others_wall">
-						<h3>Wall</h3>
-						<div id='others_wall_posts'></div>
-					</div>
-					<button class="button" id="refresh_button_others" type="button" onclick="refreshWallOthers()">Refresh</button>
-				</div>
-			</div>
-			<div id="account" class="tabcontent">
-				<h3>Account</h3>
-				<form name="formChangePassword" id="formChangePassword" onsubmit="return false">
-					Old password:<br>
-					<input type="password" name="old_password" id="old_password" required onkeyup='check_old_pass()'><br>
-					<span id='old_password_message'></span><br>
-					New Password:<br>
-					<input type="password" name="new_password" id="new_password" required onkeyup='check_pass_change()'><br>
-					<span id='new_old_password_message'></span><br>
-					Repeat new password:<br>
-					<input type="password" name="rep_new_password" id="rep_new_password" required onkeyup='check_pass_change()'><br>
-					<span id='new_password_message'></span><br>
-					<input class="button_change" type="submit" value="Change Password" onclick="changepassMechanism()">
-				</form>
-			</div>
-		</script>
-	</head>
-	<body>
-		<div id="content"></div>
-	</body>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Twidder Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" />
+    <link href="/static/client.css" type="text/css" rel="stylesheet">
+    <script src="/static/client.js" type="text/javascript"></script>
+    <script id="welcomeview" type="text/view">
+        <!-- Welcome View content - User not signed in -->
+        <div id="divParent">
+            <div class="container-fluid">
+                <div id="divLogo" class="col-sm-6">
+                    <img src="/static/wimage.png" class="img-fluid" alt="Logo">
+                </div>
+                <div id="divRight" class="col-sm-6">
+                    <div id="divLogin" class="form-group">
+                        <form name="formLogin" id="formLogin" onsubmit="signInMechanism();return false">
+                            <div>
+                                <label>Username:</label>
+                                <input class="form-control-lg" type="email" name="signin_username" id="signin_username" placeholder="E-mail" required>
+                            </div>
+                            <div>
+                                <label>Password:</label>
+                                <input class="form-control-lg" type="password" name="signin_password" id="signin_password" required onkeyup='validSignInPassword()'>
+                                <span id='signin_message'><br></span>
+                            </div>
+                            <div align="right">
+                                <input class="btn btn-default" name="login_button" type="submit" value="Login">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="divSignup" class="form-group">
+                        <form name="formSignup" id="formSignup" onsubmit="signUpMechanism();return false">
+                            <div>
+                                <label>Username:</label>
+                                <input class="form-control-lg" type="email" name="signup_username" id="signup_username" placeholder="E-mail" required>
+                                <span id='signup_username_message'><br></span>
+                            </div>
+                            <div>
+                                <label>Password:</label>
+                                <input class="form-control-lg" type="password" name="signup_password" id="signup_password" required onkeyup='check()'>
+                            </div>
+                            <div>
+                                <label>Repeat password:</label>
+                                <input class="form-control-lg" type="password" name="rep_password" id="signup_rep_password" required onkeyup='check()'>
+                                <span id='signup_message'></span>
+                            </div>
+                            <div>
+                                <label>First name:</label>
+                                <input class="form-control-lg" type="text" name="firstname" id="firstname" required>
+                            </div>
+                            <div>
+                                <label>Last name:</label>
+                                <input class="form-control-lg" type="text" name="lastname" id="lastname" required>
+                            </div>
+                            <div>
+                                <label>Gender:</label>
+                                <select class="selectpicker" id="selectmenu" name="gender" required>
+                                    <option value="" disabled selected>Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>City:</label>
+                                <input class="form-control-lg" type="text" name="city" id="city" required>
+                            </div>
+                            <div>
+                                <label>Country:</label>
+                                <input class="form-control-lg" type="text" name="country" id="country" required>
+                            </div>
+                            <div align="right">
+                                <input class="btn btn-default" name="signup_button" type="submit" value="Sign up">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="profileview" type="text/view">
+        <!-- Profile View content - User is signed in -->
+        <div class="tab">
+            <button type="button" name="home" class="tablinks" id="defaultOpen" onclick="openTab(event, 'home')">Home</button>
+            <button type="button" name="browse" class="tablinks" onclick="openTab(event, 'browse')">Browse</button>
+            <button type="button" name="account" class="tablinks" onclick="openTab(event, 'account')">Account</button>
+            <button id="buttonSignOut" name="buttonSignOut" type="button" class="tablinks" onclick="signOutMechanism()">Log Out</button>
+        </div>
+        <div id="home" class="tabcontent">
+            <h3>Home</h3>
+            <div class="container-fluid">
+                <div class="home_column col-sm-6" id="user_info">
+                    <h3>User Details</h3>
+                    <div class="left_user_info" id="left_first_name">First name:</div>
+                    <div class="right_user_info" id="right_first_name"></div>
+                    <div class="left_user_info" id="left_family_name">Family name:</div>
+                    <div class="right_user_info" id="right_family_name"></div>
+                    <div class="left_user_info" id="left_email">Email:</div>
+                    <div class="right_user_info" id="right_email"></div>
+                    <div class="left_user_info" id="left_gender">Gender:</div>
+                    <div class="right_user_info" id="right_gender"></div>
+                    <div class="left_user_info" id="left_city">City:</div>
+                    <div class="right_user_info" id="right_city"></div>
+                    <div class="left_user_info" id="left_country">Country:</div>
+                    <div class="right_user_info" id="right_country"></div>
+                    <div class="left_user_info" id="left_profile_pic">Profile Picture</div>
+                    <div class="right_user_info" id="right_profile_pic"><img class="img-circle" src="/static/uploaded/me.png" /></div>
+                </div>
+                <div class="home_column col-sm-6" id="rightColHome">
+                    <div id="post_row">
+                        <textarea class="form-control" id="post_text" name="post_text" rows="4" cols="37" placeholder="What's happening?"></textarea>
+                        <div class="container-fluid">
+                            <form enctype="multipart/form-data" class="md-form">
+                                <div class="file-field">
+                                    <div class="btn btn-sm float-left">
+                                        <input type="file" onchange="upload_file();return false" name="myFile">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div align="right">
+                            <button class="button btn btn-default" id="post_button" name="post_button" type="button" onclick="postMessage();">Tweed</button>
+                        </div>
+                        <br><span id='post_message'></span>
+                        <br>
+                    </div>
+                    <div id="wall">
+                        <h3>My Wall</h3>
+                        <div align="right">
+                            <button class="button btn btn-default" id="refresh_button" type="button" onclick="refreshWall()">Refresh</button>
+                        </div>
+                        <div id='wall_posts'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="browse" class="tabcontent">
+            <h3>Browse</h3>
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="divSearch" class="col-sm-4">
+                        <form name="search" id="search" onsubmit="searchMechanism(); return false">
+                            Search:
+                            <input class="form-control" type="email" name="search_email" id="search_email" placeholder="E-mail" required>
+                            <div align="right">
+                                <input class="btn btn-default" name="button_search" type="submit" value="Search User">
+                            </div>
+                            <span id='user_search_message'></span>
+                        </form>
+                    </div>
+                    <div class="col-sm-8"></div>
+                </div>
+                <div class="row">
+                    <div class="others_home_column col-sm-6" id="others_user_info">
+                        <h3>User Details</h3>
+                        <div class="left_user_info" id="left_first_name1">First name:</div>
+                        <div class="right_user_info" id="right_first_name1"></div>
+                        <div class="left_user_info" id="left_family_name1">Family name:</div>
+                        <div class="right_user_info" id="right_family_name1"></div>
+                        <div class="left_user_info" id="left_email1">Email:</div>
+                        <div class="right_user_info" id="right_email1"></div>
+                        <div class="left_user_info" id="left_gender1">Gender:</div>
+                        <div class="right_user_info" id="right_gender1"></div>
+                        <div class="left_user_info" id="left_city1">City:</div>
+                        <div class="right_user_info" id="right_city1"></div>
+                        <div class="left_user_info" id="left_country1">Country:</div>
+                        <div class="right_user_info" id="right_country1"></div>
+                        <div class="left_user_info" id="left_profile_pic1">Profile Picture</div>
+                        <div class="right_user_info" id="right_profile_pic1"><img class="img-circle" src="/static/uploaded/me.png" /></div>
+                    </div>
+                    <div class="home_column col-sm-6" id="rightColHomeOthers">
+                        <div id="post_row2">
+                            <textarea class="form-control" id="post_text_others" name="post_text_others" rows="4" cols="50" placeholder="What's happening?"></textarea>
+                            <div class="container-fluid">
+                                <form enctype="multipart/form-data" class="md-form">
+                                    <div class="file-field">
+                                        <div class="btn btn-sm float-left">
+                                            <input type="file" onchange="upload_file_others();return false" name="myFile">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div align="right">
+                                <button class="button btn btn-default" id="post_button_others" name="post_button_others" type="button" onclick="postMessageToOthers();">Tweed</button>
+                            </div>
+                            <span id='post_message_others'></span>
+                        </div>
+                        <div id="others_wall">
+                            <h3>Wall</h3>
+                            <div id='others_wall_posts'></div>
+                        </div>
+                        <button class="btn btn-default" id="refresh_button_others" type="button" onclick="refreshWallOthers()">Refresh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div id="account" class="tabcontent col-sm-3">
+                <h3>Account</h3>
+                <form name="formChangePassword" id="formChangePassword" onsubmit="return false">
+                    Old password:
+                    <input class="form-control-lg" type="password" name="old_password" id="old_password" required onkeyup='check_old_pass()'>
+                    <br>
+                    <span id='old_password_message'></span>
+                    <br> New Password:
+                    <input class="form-control-lg" type="password" name="new_password" id="new_password" required onkeyup='check_pass_change()'>
+                    <br>
+                    <span id='new_old_password_message'></span>
+                    <br> Repeat new password:
+                    <input class="form-control-lg" type="password" name="rep_new_password" id="rep_new_password" required onkeyup='check_pass_change()'>
+                    <br>
+                    <span id='new_password_message'></span>
+                    <br>
+                    <input class="btn btn-default" name="button_change" type="submit" value="Change Password" onclick="changepassMechanism()">
+                </form>
+            </div>
+        </div>
+    </script>
+</head>
+
+<body>
+    <div id="content"></div>
+</body>
+
 </html>

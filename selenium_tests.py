@@ -15,12 +15,29 @@ driver.get("http://127.0.0.1:5000/")
 
 def run_tests():
     if len(sys.argv[1:]) >= 1:
-        email = "testuser5@gmail.com"
+        email = "testuser234245@gmail.com"
         password = repeat_password = "aaaaa"
+        message1 = "This is an automated message from Selenium (Home Tab)"
+        message2 = "This is an automated message from Selenium (Browse Tab)"
+        new_password = "12345"
         test_sign_up(email, password, repeat_password, "Test", "User", "Male", "Linkoping", "Sweden")
         time.sleep(1)
         test_sign_in(email, password)
         time.sleep(1)
+        test_post_message(message1)
+        time.sleep(1)
+        driver.find_element_by_name("browse").send_keys(Keys.RETURN)
+        time.sleep(1)
+        test_search_user(email)
+        time.sleep(1)
+        test_post_message_to_others(message2)
+        time.sleep(1)
+        driver.find_element_by_name("account").send_keys(Keys.RETURN)
+        time.sleep(1)
+        test_change_password(oldpassword=password, newpassword=new_password, repeat_newpassword=new_password)
+        time.sleep(1)
+        test_logout()
+        time.sleep(3)
         driver.close()
     else:
         print("Please specify the browser you would like to run the tests! (Chrome or Firefox)")
@@ -72,23 +89,54 @@ def test_sign_up(email, password, repeat_password, firstname, familyname, gender
 
 
 def test_post_message(message):
-    pass
+    post_message_filed = driver.find_element_by_name("post_text")
+    post_button = driver.find_element_by_name("post_button")
+
+    post_message_filed.send_keys(message)
+    time.sleep(1)
+
+    post_button.send_keys(Keys.RETURN)
 
 
 def test_search_user(email):
-    pass
+    email_filed = driver.find_element_by_name("search_email")
+    search_button = driver.find_element_by_name("button_search")
+
+    email_filed.send_keys(email)
+    time.sleep(1)
+
+    search_button.send_keys(Keys.RETURN)
 
 
 def test_post_message_to_others(message):
-    pass
+    post_message_filed = driver.find_element_by_name("post_text_others")
+    post_button = driver.find_element_by_name("post_button_others")
+
+    post_message_filed.send_keys(message)
+    time.sleep(1)
+
+    post_button.send_keys(Keys.RETURN)
 
 
-def test_change_password():
-    pass
+def test_change_password(oldpassword, newpassword, repeat_newpassword):
+    oldpassword_filed = driver.find_element_by_name("old_password")
+    newpassword_field = driver.find_element_by_name("new_password")
+    repeat_newpassword_field = driver.find_element_by_name("rep_new_password")
+    change_password_button = driver.find_element_by_name("button_change")
+
+    oldpassword_filed.send_keys(oldpassword)
+    time.sleep(1)
+    newpassword_field.send_keys(newpassword)
+    time.sleep(1)
+    repeat_newpassword_field.send_keys(repeat_newpassword)
+    time.sleep(1)
+
+    change_password_button.send_keys(Keys.RETURN)
 
 
 def test_logout():
-    pass
+    logout_button = driver.find_element_by_id("buttonSignOut")
+    logout_button.send_keys(Keys.RETURN)
 
 
 if __name__ == '__main__':

@@ -1,51 +1,96 @@
+/*
+@media screen and (min-width: 800px) and (max-width: 800px){
+  #divLogo{
+    padding-left: 25%;
+  }
+  #divRight{
+    padding-right: 25%;
+  }
+}
+*/
+@media screen and (min-width: 1024px){
+  #divParent{
+    margin-left: 15% !important;
+  }
+}
+
+@media screen and (min-width: 1440px){
+  #divParent{
+    margin-left: 25% !important;
+  }
+}
+
+@media screen and (min-width: 2500px){
+  #divParent{
+    margin-left: 35% !important;
+  }
+}
 body {
   background-color: #1DA1F2;
+  overflow-x: hidden;
 }
+
+.form-group {
+  margin-bottom: 1rem !important;
+}
+
 #divParent {
-	width:600px;
-	padding-top:100px;
-	margin:0 auto;
-	height:520px;
+  padding-top:10%;
+	height:100%;
+  margin-left: auto;
 }
+
+label {
+  display: inline-block;
+  width: 35%;
+  text-align: left;
+}​
+
+#divParent .btn-default{
+  float: right !important;
+}
+
 #divLogo {
 	float:left;
-	background-color: #F5F8FA;
-	width:340px;
+	width:370px;
 	height:100%;
+  border-bottom: 5px solid #1DA1F2;
 }
+
 #divRight {
-	float:right;
-	margin-left: 10px;
-	width:250px;
+	float:left;
+	width:370px;
 	height:100%;
 }
+
 #divLogin {
-	background-color: #F5F8FA;
-	width:100%;
-	height:25%;
+  background-color: white;
 }
+
 #divSignup {
-	background-color: #F5F8FA;
-	width:100%;
-	height:75%;
-	border-top: 0.5px solid;
+  background-color: white;
+  border-top: 5px solid #1DA1F2;
 }
+
+.img-circle{
+    width: 5% !important;
+}
+
+/*
 #formLogin {
 	margin-left:10px;
 }
 #formSignup {
 	margin-left:10px;
-}
-#selectmenu {
-	width:175px;
-}
-.button {
+}*/
+
+/*.button {
 	float:right;
 	margin-right:65px;
 	border-radius: 25px;
 	background: #73AD21;
 	color: white;
-}
+}*/
 
 .button_change{
 	margin-right:65px;
@@ -95,7 +140,6 @@ body {
 
 .home_column{
   float: left;
-  width: 30%;
   background-color: #F5F8FA;
   border-radius: 25px;
   padding: 20px;
@@ -104,7 +148,7 @@ body {
 
 .others_home_column{
   float: left;
-  width: 30%;
+  height: 50%;
   background-color: #F5F8FA;
   border-radius: 25px;
   padding: 20px;
@@ -117,7 +161,6 @@ body {
   padding: 20px;
   border: 1px solid black;
   margin-bottom: 20px;
-  width: 400px;
 }
 #formChangePassword{
   background-color: #F5F8FA;
@@ -125,17 +168,15 @@ body {
   padding: 20px;
   border: 1px solid black;
   margin-bottom: 20px;
-  width: 200px;
+  width: 215px;
 }
 
 #rightColHome{
   float: left;
-  margin-left: 20px;
 }
 
 #rightColHomeOthers{
   float: left;
-  margin-left: 20px;
 }
 
 #post_row {
@@ -154,7 +195,6 @@ body {
 
 #others_wall{
   float:left;
-  margin-left: 40%;
   background-color: #F5F8FA;
   border-radius: 25px;
   padding: 20px;
@@ -163,22 +203,33 @@ body {
 #refresh_button{
 	float: right;
 	margin-top: -12%;
-  margin-right: 23%;
 }
 
 #refresh_button_others{
 	float: right;
-	margin-top: 10%;
-  margin-right: 9%;
+	margin-top: 2%;
 }
 
 div.left_user_info{
   float: left;
   clear: both;
   margin-bottom: 5%;
+  width: auto;
 }
 
 div.right_user_info{
   float: left;
-  margin-bottom: 5%;
+  width: auto%;
+}
+
+#right_profile_pic{
+  padding-left: 2%;
+}
+
+.audio_tags{
+  width: 200px !important;
+}
+
+.file_upload{
+    float:left;
 }
