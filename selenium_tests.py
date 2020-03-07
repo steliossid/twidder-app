@@ -23,7 +23,7 @@ def run_tests():
         time.sleep(1)
         driver.close()
     else:
-        print("Please specify the driver! (Chrome or Firefox)")
+        print("Please specify the browser you would like to run the tests! (Chrome or Firefox)")
         sys.exit(1)
 
 
