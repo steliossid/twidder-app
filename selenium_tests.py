@@ -12,7 +12,7 @@ else:
     driver = webdriver.Firefox("drivers/geckodriver.exe")
 
 # driver.get("http://127.0.0.1:5000/")
-driver.get("https://twidder-2020.herokuapp.com/")
+driver.get("https://twidder-app-tddd97.herokuapp.com/")
 
 def run_tests():
     if len(sys.argv[1:]) >= 1:
