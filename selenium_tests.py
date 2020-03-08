@@ -2,6 +2,7 @@
 
 import time
 import sys
+import server
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -15,7 +16,8 @@ driver.get("http://127.0.0.1:5000/")
 
 def run_tests():
     if len(sys.argv[1:]) >= 1:
-        email = "testuser_stelios1@gmail.com"
+        random_email = server.token_generator(10)
+        email = random_email + "@gmail.com"
         password = repeat_password = "password"
         message1 = "This is an automated message from Selenium (Home Tab)"
         message2 = "This is an automated message from Selenium (Browse Tab)"
