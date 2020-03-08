@@ -1,5 +1,6 @@
-Flask==1.1.1
-Flask-BCrypt==0.7.1
-gevent==1.4.0
-gevent-websocket==0.10.1
-selenium==3.141.0
+selenium
+flask
+gevent
+gevent-websocket
+flask_bcrypt
+gunicorn

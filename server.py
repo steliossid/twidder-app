@@ -3,9 +3,14 @@ import database_helper
 import json
 import random
 import string
+import sys
+import os
 from gevent.pywsgi import WSGIServer
 from geventwebsocket.handler import WebSocketHandler
 from flask_bcrypt import Bcrypt
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -226,7 +231,8 @@ def after_request(exception):
 
 
 if __name__ == '__main__':
-    print("Server: http://127.0.0.1:5000/")
-    http_server = WSGIServer(('127.0.0.1', 5000), app, handler_class=WebSocketHandler)
-    http_server.serve_forever()
+	# print("Server: http://127.0.0.1:5000/")
+    # http_server = WSGIServer(('127.0.0.1', 5000), app, handler_class=WebSocketHandler)
+	http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
+	http_server.serve_forever()
     # app.run()
