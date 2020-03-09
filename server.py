@@ -234,6 +234,6 @@ def after_request(exception):
 if __name__ == '__main__':
     # print("Server: http://127.0.0.1:5000/")
     # http_server = WSGIServer(('127.0.0.1', 5000), app, handler_class=WebSocketHandler)
-    http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
+    http_server = WSGIServer(('', int(os.environ.get('PORT'))), app, handler_class=WebSocketHandler)
     http_server.serve_forever()
     # app.run()

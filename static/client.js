@@ -13,7 +13,7 @@ displayView = function() { //////DONE
     } else {
         var display = profile;
         console.log("geiaaaaaaaaaaa")
-        var connection = new WebSocket('wss://' + document.domain + ':5000/check_websocket');
+        var connection = new WebSocket('wss://' + document.domain + ':'+ document.port +'/check_websocket');
         connection.onopen = function() {
         console.log("ANOIKSE")
             message = {
