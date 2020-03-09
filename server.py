@@ -151,7 +151,7 @@ def get_user_data_by_token():
             return json.dumps({"success": "true", "message": "Requested user found!", "data": result[:]}), 200
 
         else:
-            return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
+            return json.dumps({"success": "false", "message": "Something went wrong!"}), 400
 
 
 @app.route('/users/get_user_data_by_email/<email>', methods=['GET'])
@@ -162,7 +162,7 @@ def get_user_data_by_email(email=None):
         if result:
             return json.dumps({"success": "true", "message": "Requested user found!", "data": result[:]}), 200
         else:
-            return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
+            return json.dumps({"success": "false", "message": "Something went wrong!"}), 400
 
 
 @app.route('/users/get_user_messages_by_token/', methods=['GET'])
@@ -173,7 +173,7 @@ def get_user_messages_by_token():
         if result:
             return json.dumps({"success": "true", "message": "Requested wall found!", "data": result[:]}), 200
         else:
-            return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
+            return json.dumps({"success": "false", "message": "Something went wrong!"}), 400
 
 
 @app.route('/users/get_user_messages_by_email/<email>', methods=['GET'])
@@ -184,7 +184,7 @@ def get_user_messages_by_email(email=None):
         if result:
             return json.dumps({"success": "true", "message": "Requested wall found!", "data": result[:]}), 200
         else:
-            return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
+            return json.dumps({"success": "false", "message": "Something went wrong!"}), 400
 
 
 @app.route('/users/post_message/', methods=['POST'])

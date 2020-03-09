@@ -238,7 +238,7 @@ var check_old_pass = function() { //////DONE
                         } else {
                             console.log("Something went wrong");
                         }
-                    } else if (this.status == 500) {
+                    } else if (this.status == 400) {
                         console.log("Something went wrong!");
                     }
                 }
@@ -377,7 +377,7 @@ fillUserDetails = function() { /////////DONE
                     } else {
                         console.log("Something went wrong")
                     }
-                } else if (this.status == 500) {
+                } else if (this.status == 400) {
                     console.log("Something went wrong!")
                 }
             }
@@ -437,7 +437,7 @@ postMessage = function() { //////////DONE
                     } else {
                         console.log("Something went wrong!")
                     }
-                } else if (this.status == 500) {
+                } else if (this.status == 400) {
                     console.log("Something went wrong!")
                 }
             }
@@ -486,7 +486,7 @@ displayPosts = function() { /////////DONE
                         console.log("Something went wrong!")
                     }
                 }
-            } else if (this.status == 500) {
+            } else if (this.status == 400) {
                 console.log("Something went wrong!")
             }
         };
@@ -552,7 +552,7 @@ postMessageToOthers = function() { ///////DONE
                     } else {
                         console.log("Something went wrong!")
                     }
-                } else if (this.status == 500) {
+                } else if (this.status == 400) {
                     console.log("Something went wrong!")
                 }
             }
@@ -599,7 +599,7 @@ displayPostsOthers = function() { //////////DONE
                     } else {
                         console.log("Something went wrong")
                     }
-                } else if (this.status == 500) {
+                } else if (this.status == 400) {
                     console.log("Something went wrong!")
                 }
             }
