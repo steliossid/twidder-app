@@ -60,7 +60,7 @@ var upload_profile = function(){
                     data.append("file", document.getElementById("prof_pic").files[0]);
                     params = loggedinuser["data"][0]['email'];
                     $.ajax({
-                      url: "http://127.0.0.1:5000/users/upload_profile/" + params,
+                      url: "/users/upload_profile/" + params,
                       type: 'POST',
                       processData: false, // important
                       contentType: false, // important
@@ -112,7 +112,7 @@ var upload_file = function(){
                     data.append("file", document.getElementById("file").files[0]);
                     params = loggedinuser["data"][0]['email'] + ',' + loggedinuser["data"][0]['email'];
                     $.ajax({
-                      url: "http://127.0.0.1:5000/users/upload_file/" + params,
+                      url: "/users/upload_file/" + params,
                       type: 'POST',
                       processData: false, // important
                       contentType: false, // important
@@ -162,7 +162,7 @@ var upload_file_other = function(){
                     data.append("file", document.getElementById("file_other").files[0]);
                     params = loggedinuser["data"][0]['email'] + ',' + email;
                     $.ajax({
-                      url: "http://127.0.0.1:5000/users/upload_file/" + params,
+                      url: "/users/upload_file/" + params,
                       type: 'POST',
                       processData: false, // important
                       contentType: false, // important
