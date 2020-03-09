@@ -4,4 +4,4 @@ gevent
 gevent-websocket
 flask_bcrypt
 gunicorn
-werkzeug
+werkzeug==0.16.0
