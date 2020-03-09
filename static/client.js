@@ -88,6 +88,7 @@ var upload_profile = function(){
       catch(e){
         console.error(e);
       }
+	fillUserDetails();
 }
 
 
