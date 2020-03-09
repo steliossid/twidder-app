@@ -1,6 +1,6 @@
 create table users(
     email varchar(30),
-    password varchar(60),
+    password varchar(30),
     firstname varchar(30),
     familyname varchar(30),
     gender varchar(30),
@@ -18,5 +18,11 @@ create table wall(
 create table loggedinusers(
     email varchar(30),
     token varchar(30),
+    primary key(email)
+);
+
+create table prof_pics(
+    email varchar(30),
+    foto varchar(30),
     primary key(email)
 );

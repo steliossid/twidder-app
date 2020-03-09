@@ -18,11 +18,44 @@ def disconnect_db():
         g.db = None
 
 
+
+
+def upload_file(filename, email, email_wall):
+    try:
+        get_db().execute("insert into wall values(?,?,?);", [email_wall, email, filename])
+        get_db().commit()
+        return True
+    except:
+        return False
+
+def upload_profile(filename, email):
+    try:
+        get_db().execute("delete from prof_pics where email like ?;", [email])
+        get_db().execute("insert into prof_pics values(?,?);", [email, filename])
+        get_db().commit()
+        return True
+    except:
+        return False
+
+def load_profile_picture(email):
+    try:
+        cursor = get_db().execute('select * from prof_pics where email like ?', [email])
+        rows = cursor.fetchall()
+        cursor.close()
+        if len(rows)>0:
+            result = rows[0][1]
+            return result
+        else:
+            return False
+    except:
+        return False
+
+
 def find_user(email):
     cursor = get_db().execute('select * from users where email like ?', [email])
     rows = cursor.fetchall()
     cursor.close()
-    if len(rows) > 0:
+    if len(rows)>0:
         result = []
         for index in range(len(rows)):
             result.append({'email': rows[index][0], 'password': rows[index][1],
@@ -42,27 +75,25 @@ def sign_in(token, email):
     except:
         return False
 
-
-def check_old_password(email, password):
+def check_old_password(email,password):
     try:
-        cursor = get_db().execute('select * from users where email = ?  AND password = ?;', [email, password])
+        cursor = get_db().execute('select * from users where email = ?  AND password = ?;',[email,password])
         rows = cursor.fetchall()
         cursor.close()
-        if len(rows) > 0:
+        result = []
+        if len(rows)>0:
             return True
     except:
         return False
 
-
 def delete_loggedinuser(email):
     try:
-        email = email.replace('"', '')
+        email=email.replace('"', '')
         result = get_db().execute("delete from loggedinusers where email like ?", [email])
         get_db().commit()
         return True
     except:
         return False
-
 
 def sign_up(email, password, firstname, familyname, gender, city, country):
     try:
@@ -84,10 +115,18 @@ def sign_out(token):
 
 
 def change_password(token, oldpassword, newpassword):
+    try:
+        newpassword = newpassword.decode("utf-8")
+    except:
+        pass
     token_exists = get_db().execute('select count(*) from loggedinusers where token like ?', [token]).fetchall()
     if token_exists[0][0] > 0:
         user_email = get_db().execute('select email from loggedinusers where token like ?', [token]).fetchall()[0][0]
         oldpassword_db = get_db().execute('select password from users where email like ?', [user_email]).fetchall()[0][0]
+        try:
+            oldpassword_db = oldpassword_db.decode("utf-8")
+        except:
+            pass
         if oldpassword == oldpassword_db:
             try:
                 get_db().execute('update users '

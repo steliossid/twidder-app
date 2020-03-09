@@ -4,10 +4,11 @@ import json
 import random
 import string
 import sys
-import os
 from gevent.pywsgi import WSGIServer
 from geventwebsocket.handler import WebSocketHandler
 from flask_bcrypt import Bcrypt
+import os
+from werkzeug import secure_filename
 
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 
@@ -15,7 +16,6 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
 app.debug = True
-
 
 @app.route('/')
 def root():
@@ -25,6 +25,55 @@ def root():
 def token_generator(n):
     letters = string.ascii_letters + "0123456789"
     return ''.join(random.choice(letters) for i in range(n))
+
+
+
+
+@app.route('/users/upload_file/<email>,<email_wall>', methods=['POST'])
+def upload_file(email=None, email_wall=None):
+    file = request.files['file']
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    UPLOAD_FOLD = 'static/uploaded/' + email_wall + '/'
+    UPLOAD_FOLDER = os.path.join(APP_ROOT, UPLOAD_FOLD)
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    if request.files:
+        f = request.files['file']
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+        if not email_wall:
+            database_helper.upload_file(secure_filename(f.filename),email, email)
+        else:
+            database_helper.upload_file(secure_filename(f.filename),email, email_wall)
+        return "True"
+    else:
+        return "False"
+
+@app.route('/users/upload_profile/<email>', methods=['POST'])
+def upload_profile(email=None):
+    file = request.files['file']
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    UPLOAD_FOLD = 'static/uploaded/' + email + '/ProfilePicture/'
+    UPLOAD_FOLDER = os.path.join(APP_ROOT, UPLOAD_FOLD)
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    if request.files:
+        f = request.files['file']
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+        database_helper.upload_profile(secure_filename(f.filename),email)
+        return "True"
+    else:
+        return "False"
+
+@app.route('/users/load_profile_picture/<email>', methods=['GET'])
+def load_profile_picture(email=None):
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    UPLOAD_FOLD = 'static/uploaded/' + email + '/ProfilePicture/'
+    UPLOAD_FOLDER = os.path.join(APP_ROOT, UPLOAD_FOLD)
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    result = database_helper.load_profile_picture(email)
+    if result:
+        return json.dumps({"success": "true", "message": "Successfully signed in.", "data": result}), 200
+    else:
+        return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
+
 
 
 @app.route('/find_user/<email>', methods=['GET'])
@@ -78,7 +127,8 @@ def check_old_password(email=None, password=None):
     if email and password and find_user(email):
         user_password = find_user(email).get_json()[0]['password']
         if bcrypt.check_password_hash(user_password, password):
-            result = database_helper.check_old_password(email, user_password)
+            #result = database_helper.check_old_password(email, user_password)
+            result = True
             if result:
                 return json.dumps({"success": "true", "message": "Password matching!"}), 200
             else:
@@ -99,6 +149,9 @@ def sign_up():
             result = database_helper.sign_up(data['email'], pw_hashed, data['firstname'], data['familyname'],
                                              data['gender'], data['city'], data['country'])
             if result:
+                path = os.getcwd() + "/static/uploaded/" + str(data['email'])
+                os.mkdir(path)
+                os.mkdir(path + "/ProfilePicture")
                 return json.dumps({"success": "true", "message": "User saved!"}), 200
             else:
                 return json.dumps({"success": "false", "message": "Something went wrong!"}), 500
@@ -132,6 +185,7 @@ def change_password():
             new_pw_hashed = bcrypt.generate_password_hash(data['newpassword'])
             if bcrypt.check_password_hash(user['password'], data['oldpassword']):
                 result = database_helper.change_password(token, user['password'], new_pw_hashed)
+                print(result)
                 if result:
                     return json.dumps({"success": "true", "message": "Password changed!"}), 200
                 else:
@@ -213,9 +267,7 @@ def check_websocket():
         signed_in_users[user] = web_socket
         while not web_socket.closed:
             message = web_socket.receive()
-            print(message)
             if message is not None:
-                print("Mesa")
                 message = json.loads(message)
                 message = {'message': 'Successfully logged in'}
                 web_socket.send(json.dumps(message))

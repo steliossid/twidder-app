@@ -111,17 +111,25 @@
                     <div class="right_user_info" id="right_city"></div>
                     <div class="left_user_info" id="left_country">Country:</div>
                     <div class="right_user_info" id="right_country"></div>
-                    <div class="left_user_info" id="left_profile_pic">Profile Picture</div>
-                    <div class="right_user_info" id="right_profile_pic"><img class="img-circle" src="/static/uploaded/me.png" /></div>
+                    <div class="left_user_info" id="left_profile_pic">Upload Picture
+                        <form ref='uploadForm' id='prof_pic_form' method='post' enctype="multipart/form-data" name="prof_pic_form">
+                            <div class="file-field">
+                                <div class="btn btn-sm float-left">
+                                    <input type="file" onchange="upload_profile();return false" id="prof_pic" name="prof_pic">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="right_user_info" id="right_profile_pic"><img id="profile_picture" class="img-circle"/></div>
                 </div>
                 <div class="home_column col-sm-6" id="rightColHome">
                     <div id="post_row">
                         <textarea class="form-control" id="post_text" name="post_text" rows="4" cols="37" placeholder="What's happening?"></textarea>
                         <div class="container-fluid">
-                            <form enctype="multipart/form-data" class="md-form">
+                            <form ref='uploadForm' id='uploadForm' method='post' enctype="multipart/form-data" class="md-form" name="myform">
                                 <div class="file-field">
                                     <div class="btn btn-sm float-left">
-                                        <input type="file" onchange="upload_file();return false" name="myFile">
+                                        <input type="file" onchange="upload_file();return false" id="file" name="file">
                                     </div>
                                 </div>
                             </form>
@@ -174,16 +182,16 @@
                         <div class="left_user_info" id="left_country1">Country:</div>
                         <div class="right_user_info" id="right_country1"></div>
                         <div class="left_user_info" id="left_profile_pic1">Profile Picture</div>
-                        <div class="right_user_info" id="right_profile_pic1"><img class="img-circle" src="/static/uploaded/me.png" /></div>
+                        <div class="right_user_info" id="right_profile_pic1"><img id="profile_picture_other" class="img-circle"/></div>
                     </div>
                     <div class="home_column col-sm-6" id="rightColHomeOthers">
                         <div id="post_row2">
                             <textarea class="form-control" id="post_text_others" name="post_text_others" rows="4" cols="50" placeholder="What's happening?"></textarea>
                             <div class="container-fluid">
-                                <form enctype="multipart/form-data" class="md-form">
+                                <form ref='uploadFormOther' id='uploadFormOther' method='post' enctype="multipart/form-data" class="md-form" name="uploadFormOther">
                                     <div class="file-field">
                                         <div class="btn btn-sm float-left">
-                                            <input type="file" onchange="upload_file_others();return false" name="myFile">
+                                            <input type="file" onchange="upload_file_other();return false" id="file_other" name="file_other">
                                         </div>
                                     </div>
                                 </form>
