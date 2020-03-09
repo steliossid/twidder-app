@@ -71,6 +71,8 @@ var upload_profile = function(){
                       },
                     });
                     fillUserDetails();
+					var frm = document.getElementById('prof_pic_form');
+					frm.reset();
                   }
                   catch(e){
                     console.error(e);
