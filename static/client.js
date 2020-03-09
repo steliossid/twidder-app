@@ -12,7 +12,7 @@ displayView = function() { //////DONE
         var display = welcome;
     } else {
         var display = profile;
-        var connection = new WebSocket('ws://'+ location.host + ':' + location.port + '/check_websocket');
+        var connection = new WebSocket('ws://127.0.0.1:5000/check_websocket');
         connection.onopen = function() {
             message = {
                 'token': JSON.parse(sessionStorage.getItem("token"))
