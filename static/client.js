@@ -21,6 +21,7 @@ displayView = function() { //////DONE
         };
         connection.onmessage = function(e) {
             message = JSON.parse(e.data)['message']
+            console.log(message)
             if (message == 'Logged in from another device') {
                 sessionStorage.removeItem('token');
                 displayView();
