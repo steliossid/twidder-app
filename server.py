@@ -213,7 +213,9 @@ def check_websocket():
         signed_in_users[user] = web_socket
         while not web_socket.closed:
             message = web_socket.receive()
+            print(message)
             if message is not None:
+                print("Mesa")
                 message = json.loads(message)
                 message = {'message': 'Successfully logged in'}
                 web_socket.send(json.dumps(message))
