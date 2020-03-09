@@ -12,12 +12,12 @@ displayView = function() { //////DONE
         var display = welcome;
     } else {
         var display = profile;
+        console.log("geiaaaaaaaaaaa")
         var connection = new WebSocket('wss://' + document.domain + ':5000/check_websocket');
         connection.onopen = function() {
             message = {
                 'token': JSON.parse(sessionStorage.getItem("token"))
             };
-            console.log("geiaaaaaaaaaaa")
             connection.send(JSON.stringify(message));
         };
         connection.onmessage = function(e) {
