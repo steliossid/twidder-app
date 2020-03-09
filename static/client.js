@@ -15,6 +15,7 @@ displayView = function() { //////DONE
         console.log("geiaaaaaaaaaaa")
         var connection = new WebSocket('wss://' + document.domain + ':5000/check_websocket');
         connection.onopen = function() {
+        console.log("ANOIKSE")
             message = {
                 'token': JSON.parse(sessionStorage.getItem("token"))
             };
