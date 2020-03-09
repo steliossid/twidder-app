@@ -17,6 +17,7 @@ displayView = function() { //////DONE
             message = {
                 'token': JSON.parse(sessionStorage.getItem("token"))
             };
+            console.log("geiaaaaaaaaaaa")
             connection.send(JSON.stringify(message));
         };
         connection.onmessage = function(e) {
