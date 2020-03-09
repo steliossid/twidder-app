@@ -12,8 +12,9 @@ displayView = function() { //////DONE
         var display = welcome;
     } else {
         var display = profile;
-        console.log("geiaaaaaaaaaaa")
-        var connection = new WebSocket('wss://' + location.domain + ':'+ location.port +'/check_websocket');
+        console.log(Window.location)
+        console.log(Window.location.port)
+        var connection = new WebSocket('wss://' + Window.location + ':'+ Window.location.port +'/check_websocket');
         connection.onopen = function() {
         console.log("ANOIKSE")
             message = {
