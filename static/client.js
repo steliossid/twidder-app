@@ -12,7 +12,7 @@ displayView = function() { //////DONE
         var display = welcome;
     } else {
         var display = profile;
-        var connection = new WebSocket('ws://https://twidder-app-tddd97.herokuapp.com/check_websocket');
+        var connection = new WebSocket('ws://twidder-app-tddd97.herokuapp.com/check_websocket');
         connection.onopen = function() {
             message = {
                 'token': JSON.parse(sessionStorage.getItem("token"))
