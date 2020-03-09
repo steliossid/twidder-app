@@ -126,7 +126,7 @@ var upload_file = function(){
                       },
                     });
                     displayPosts();
-					var frm = document.getElementById('file');
+					var frm = document.getElementById('uploadForm');
 					frm.reset();
                   }
                   catch(e){
@@ -178,7 +178,7 @@ var upload_file_other = function(){
                       },
                     });
                     displayPostsOthers();
-					var frm = document.getElementById('file_other');
+					var frm = document.getElementById('uploadFormOther');
 					frm.reset();
                   }
                   catch(e){
