@@ -8,6 +8,33 @@
   }
 }
 */
+@media screen and (max-width: 425px){
+  #image_home{
+    visibility: hidden !important;
+  }
+  #profile_picture{
+    visibility: hidden !important;
+  }
+  #profile_picture_other{
+    visibility: hidden !important;
+  }
+  #divLogo{
+    display: none;
+  }
+  #imagehome{
+    visibility: hidden
+  }
+  #videohome{
+    visibility: hidden
+  }
+  #imageother{
+    visibility: hidden
+  }
+  #videoother{
+    visibility: hidden
+  }
+}
+
 @media screen and (min-width: 1024px){
   #divParent{
     margin-left: 15% !important;
