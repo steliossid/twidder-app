@@ -22,16 +22,16 @@
     display: none;
   }
   #imagehome{
-    visibility: hidden
+    display: none;
   }
   #videohome{
-    visibility: hidden
+    display: none;
   }
   #imageother{
-    visibility: hidden
+    display: none;
   }
   #videoother{
-    visibility: hidden
+    display: none;
   }
 }
 
