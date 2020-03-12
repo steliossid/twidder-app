@@ -21,16 +21,16 @@
   #divLogo{
     display: none;
   }
-  #imagehome{
+  .imagehome{
     display: none;
   }
-  #videohome{
+  .videohome{
     display: none;
   }
-  #imageother{
+  .imageother{
     display: none;
   }
-  #videoother{
+  .videoother{
     display: none;
   }
 }

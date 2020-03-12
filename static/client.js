@@ -664,10 +664,10 @@ displayPosts = function(){  /////////DONE
               for(i = 0; i < n; i++){
                 message = userMessages["data"][i]["content"];
                 if(message.endsWith(".png")){
-                  image_path_str = "<p id=imagehome><img src=/static/uploaded/".concat(userMessages["data"][i]["email"]).concat("/");
+                  image_path_str = "<p class=imagehome><img src=/static/uploaded/".concat(userMessages["data"][i]["email"]).concat("/");
                   document.getElementById("wall_posts").innerHTML += image_path_str.concat(message).concat(" width=50px height=50px/></p>");
                 }else if(message.endsWith(".mp4")){
-                  video_path_str = "<p id=videohome><video width=200 controls><source src=/static/uploaded/".concat(userMessages["data"][i]["email"]).concat("/");
+                  video_path_str = "<p class=videohome><video width=200 controls><source src=/static/uploaded/".concat(userMessages["data"][i]["email"]).concat("/");
                   document.getElementById("wall_posts").innerHTML += video_path_str.concat(message).concat(" type=video/mp4></video></p>");
                 }else{
                 document.getElementById("wall_posts").innerHTML +=
@@ -780,10 +780,10 @@ displayPostsOthers = function(){   //////////DONE
               for(i = 0; i < n; i++){
                 message = userMessages["data"][i]["content"];
                 if(message.endsWith(".png")){
-                  image_path_str = "<p id=imageother><img src=/static/uploaded/".concat(userMessages["data"][i]["email"]).concat("/");
+                  image_path_str = "<p class=imageother><img src=/static/uploaded/".concat(userMessages["data"][i]["email"]).concat("/");
                   document.getElementById("others_wall_posts").innerHTML += image_path_str.concat(message).concat(" width=50px height=50px/></p>");
                 }else if(message.endsWith(".mp4")){
-                  video_path_str = "<p id=videoother><video width=200 controls><source src=/static/uploaded/".concat(userMessages["data"][i]["email"]).concat("/");
+                  video_path_str = "<p class=videoother><video width=200 controls><source src=/static/uploaded/".concat(userMessages["data"][i]["email"]).concat("/");
                   document.getElementById("others_wall_posts").innerHTML += video_path_str.concat(message).concat(" type=video/mp4></video></p>");
                 }else{
                 document.getElementById("others_wall_posts").innerHTML +=
